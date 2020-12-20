@@ -1,0 +1,22 @@
+deactivate - leave venv
+
+django-admin startproject mysite  - create new project
+python manage.py startapp polls - create new app
+
+cd mysite
+python manage.py runserver - start server
+
+- database setup -
+python manage.py migrate - generate or update db; run migrations, manage db schema automatically
+python manage.py makemigrations polls - tell django you made some changes to your models
+python manage.py sqlmigrate polls 0001 - return SQL of defined migration
+
+making model changes:
+Change your models (in models.py).
+python manage.py makemigrations - to create migrations for those changes
+python manage.py migrate - to apply those changes to the database.
+
+-- create admin --
+python manage.py createsuperuser
+
+
