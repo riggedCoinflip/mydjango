@@ -1,0 +1,6 @@
+{% extends "./base.html" %}
+
+{% block content %}
+        <li><a href="{% url 'polls:index' %}">Polls</a></li>
+        <li><a href="{% url 'admin:index' %}">Admin</a></li>
+{% endblock %}
