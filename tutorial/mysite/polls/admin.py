@@ -6,12 +6,14 @@ from .models import Question, Choice
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
-    extra = 3
+    min_num = 2
+    max_num = 20
+    extra = 1
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['question_text']}),
-        ('Date information', {'fields': ['pub_date']}),
+        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
     inlines = [ChoiceInline]
 
