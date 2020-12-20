@@ -19,4 +19,7 @@ python manage.py migrate - to apply those changes to the database.
 -- create admin --
 python manage.py createsuperuser
 
+-- csrf --
+in any template that uses a POST form, use the csrf_token tag inside the <form> element if the form is for an internal URL
+
 
