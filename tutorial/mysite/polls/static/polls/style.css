@@ -1,6 +1,30 @@
-li a {
-    color: green;
+ul.no-bullets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-body {
+/* Create columns */
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
