@@ -1,17 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>
-        myDjango
+      myDjango
     </title>
-    <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
-</head>
-<body>
-{% block content %}
-    <li><a href="{% url 'polls:index' %}">Polls</a></li>
-<li><a href="{% url 'admin:index' %}">Admin</a></li>
-{% endblock %}
-</body>
+    <link rel="stylesheet" type="text/css" href="{% static 'home/navbar.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+    {% include "./navbar.html" %}
+  </body>
 </html>
