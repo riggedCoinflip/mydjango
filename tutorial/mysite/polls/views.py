@@ -46,7 +46,33 @@ a separate test method for each set of conditions you want to test
 test method names that describe their function
 '''
 
-class IndexView(generic.ListView):
+
+def recent_polls(how_many=5):
+    polls = Question.objects.filter(
+        pub_date__lte=timezone.now()
+    ).order_by('-pub_date')[:how_many]
+    return polls
+
+
+class WithSidebar:
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WithSidebar, self).get_context_data(**kwargs)
+        context['recent_polls'] = recent_polls()
+        return context
+
+
+class DetailView(WithSidebar, generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
+
+
+class IndexView(WithSidebar, generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'recent_polls'
 
@@ -60,17 +86,7 @@ class IndexView(generic.ListView):
         ).order_by('-pub_date')[:5]
 
 
-class DetailView(generic.DetailView):
-    model = Question
-    template_name = 'polls/detail.html'
-
-    def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
-        return Question.objects.filter(pub_date__lte=timezone.now())
-
-class ResultsView(generic.DetailView):
+class ResultsView(WithSidebar, generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
@@ -92,3 +108,4 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
