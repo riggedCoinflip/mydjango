@@ -56,7 +56,7 @@ def recent_polls(how_many=5):
 
 class WithSidebar:
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(WithSidebar, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['recent_polls'] = recent_polls()
         return context
 
@@ -74,16 +74,6 @@ class DetailView(WithSidebar, generic.DetailView):
 
 class IndexView(WithSidebar, generic.ListView):
     template_name = 'polls/index.html'
-    context_object_name = 'recent_polls'
-
-    def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
 
 
 class ResultsView(WithSidebar, generic.DetailView):
