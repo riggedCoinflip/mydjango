@@ -56,7 +56,7 @@ def recent_polls(how_many=5):
 
 class WithSidebar:
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(WithSidebar, self).get_context_data(**kwargs)
         context['recent_polls'] = recent_polls()
         return context
 
