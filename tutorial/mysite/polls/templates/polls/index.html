@@ -5,8 +5,11 @@
 {% block content %}
   <form action="" method="post">
     {% csrf_token %}
-    {{ question_form }}
-    {{ choices_form_set }}
+    {{ question_form }}<br>
+    {{ choices_form_set.management_form }}
+    {% for choice in choices_form_set %}
+      {{ choice }}<br>
+    {% endfor %}
     <input type="submit" value="Submit Question"/>
   </form>
 
