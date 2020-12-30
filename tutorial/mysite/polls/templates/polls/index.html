@@ -1,16 +1,18 @@
 {% extends "./base.html" %}
-{% block title %} Latest Polls {% endblock %}
+
+{% block title %} Main {% endblock %}
 
 {% block content %}
-    {% if latest_question_list %}
-        <ul>
-        {% for question in latest_question_list %}
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No polls are available.</p>
-    {% endif %}
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ question_form }}<br>
+    {{ choices_form_set.management_form }}
+    {% for choice in choices_form_set %}
+      {{ choice }}<br>
+    {% endfor %}
+    <input type="submit" value="Submit Question"/>
+  </form>
+
 {% endblock %}
 
 

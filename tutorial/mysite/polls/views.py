@@ -5,6 +5,7 @@ from django.views import generic
 from django.utils import timezone
 
 from .models import Choice, Question
+from .forms import QuestionForm, QuestionInlineFormSet
 
 '''
 Ideas for more tests¶
@@ -46,21 +47,53 @@ a separate test method for each set of conditions you want to test
 test method names that describe their function
 '''
 
-class IndexView(generic.ListView):
+
+def recent_polls(how_many=5):
+    polls = Question.objects.filter(
+        pub_date__lte=timezone.now()
+    ).order_by('-pub_date')[:how_many]
+    return polls
+
+
+class WithSidebar:
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WithSidebar, self).get_context_data(**kwargs)
+        context['recent_polls'] = recent_polls()
+        return context
+
+
+class IndexView(WithSidebar, generic.CreateView):
     template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'  # would be called 'question_list' by default
+    model = Question
+    form_class = QuestionForm
+    success_url = None
 
-    def get_queryset(self):
-        '''
-        Return the last five published questions (not including those set to be
-        published in the future).
-        '''
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['question_form'] = QuestionForm(self.request.POST)
+            context['choices_form_set'] = QuestionInlineFormSet(self.request.POST)
+        else:
+            context['question_form'] = QuestionForm()
+            context['choices_form_set'] = QuestionInlineFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        choices = context['choices_form_set']
+        if choices.is_valid() and form.is_valid():
+            question_instance = form.save()
+            for choice in choices:
+                choice = choice.instance
+                #get id of the newly created question.
+                choice.question_id = question_instance.id
+                choice.save()
+            return HttpResponseRedirect(f'{question_instance.id}')
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
-class DetailView(generic.DetailView):
+class DetailView(WithSidebar, generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
 
@@ -70,7 +103,8 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
-class ResultsView(generic.DetailView):
+
+class ResultsView(WithSidebar, generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
@@ -92,3 +126,4 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
