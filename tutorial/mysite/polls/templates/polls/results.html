@@ -1,4 +1,4 @@
-{% extends "./base.html" %}
+{% extends "./base_with_sidebar.html" %}
 
 {% block title %} {{ question.question_text }} {% endblock %}
 
@@ -14,5 +14,5 @@
   <form action="{% url 'polls:detail' question.id %}">
     <input type="submit" value="Vote again?"/>
   </form>
-  {% include "./button_to_index.html" %}
+  {% include "./button_to_home.html" %}
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "./base_with_sidebar.html" %}
+{% load static %}
+
+
+{% block title %} Home {% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<form class="submit-question" action="" method="post">
+  {% csrf_token %}
+  <div class="submit-question-item">
+    {{ question_form }}
+    {{ choices_form_set.management_form }}
+  </div>
+  <hr>
+  {% for choice in choices_form_set %}
+  <div class="submit-question-item">{{ choice }}</div>
+  {% endfor %}
+  <input class="submit-question-item" type="submit" value="Submit Question"/>
+</form>
+{% endblock %}
