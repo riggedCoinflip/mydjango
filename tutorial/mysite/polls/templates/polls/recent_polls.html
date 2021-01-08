@@ -1,9 +1,7 @@
- {% if recent_polls %}
-        <ul class="no-bullets">
-        {% for question in recent_polls %}
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No polls are available.</p>
-    {% endif %}
+{% if recent_polls %}
+    {% for question in recent_polls %}
+        <div><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a><div>
+    {% endfor %}
+{% else %}
+    <div>No polls are available.</div>
+{% endif %}
