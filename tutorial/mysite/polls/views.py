@@ -7,47 +7,6 @@ from django.utils import timezone
 from .models import Choice, Question
 from .forms import QuestionForm, QuestionInlineFormSet
 
-'''
-Ideas for more tests¶
-We ought to add a similar get_queryset method to ResultsView and create a new test class for that view. It’ll be very
- similar to what we have just created; in fact there will be a lot of repetition.
-
-We could also improve our application in other ways, adding tests along the way. For example, it’s silly that Questions
- can be published on the site that have no Choices. So, our views could check for this, and exclude such Questions. 
- Our tests would create a Question without Choices and then test that it’s not published, as well as create a similar
- Question with Choices, and test that it is published.
-
-Perhaps logged-in admin users should be allowed to see unpublished Questions, but not ordinary visitors. Again: whatever
- needs to be added to the software to accomplish this should be accompanied by a test, whether you write the test first
-  and then make the code pass the test, or work out the logic in your code first and then write a test to prove it.
-
-At a certain point you are bound to look at your tests and wonder whether your code is suffering from test bloat, which 
-brings us to:
-
-
-
-When testing, more is better¶
-It might seem that our tests are growing out of control. At this rate there will soon be more code in our tests than in 
-our application, and the repetition is unaesthetic, compared to the elegant conciseness of the rest of our code.
-
-It doesn’t matter. Let them grow. For the most part, you can write a test once and then forget about it. It will 
-continue performing its useful function as you continue to develop your program.
-
-Sometimes tests will need to be updated. Suppose that we amend our views so that only Questions with Choices are 
-published. In that case, many of our existing tests will fail - telling us exactly which tests need to be amended to 
-bring them up to date, so to that extent tests help look after themselves.
-
-At worst, as you continue developing, you might find that you have some tests that are now redundant. Even that’s not a 
-problem; in testing redundancy is a good thing.
-
-As long as your tests are sensibly arranged, they won’t become unmanageable. Good rules-of-thumb include having:
-
-a separate TestClass for each model or view
-a separate test method for each set of conditions you want to test
-test method names that describe their function
-'''
-
-
 def recent_polls(how_many=5):
     polls = Question.objects.filter(
         pub_date__lte=timezone.now()
@@ -62,14 +21,14 @@ class WithSidebar:
         return context
 
 
-class IndexView(WithSidebar, generic.CreateView):
-    template_name = 'polls/index.html'
+class HomeView(WithSidebar, generic.CreateView):
+    template_name = 'polls/home.html'
     model = Question
     form_class = QuestionForm
     success_url = None
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
+        context = super(HomeView, self).get_context_data(**kwargs)
         if self.request.POST:
             context['question_form'] = QuestionForm(self.request.POST)
             context['choices_form_set'] = QuestionInlineFormSet(self.request.POST)
