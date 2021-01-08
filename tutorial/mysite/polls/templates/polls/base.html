@@ -1,25 +1,36 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <title>
-        {% block title %} myDjango {% endblock %}
-    </title>
-    <link rel="stylesheet" type="text/css" href="{% static 'home/navbar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
-  <body>
-    {% include "home/navbar.html" %}
-    <div class="row">
-      <div class="column left">
-          {% block content %}
-          {% endblock %}
-      </div>
-      <div class="column right">
-          {% include "./recent_polls.html" %}
-      </div>
+    {% include 'favicon.html' %}
+    <title>{% block title %} myDjango {% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{% static 'polls/css/base.css' %}">
+    {% endblock %}
+</head>
+<body>
+<header class="header">
+    header
+    <div class="navbar">
+        <div class="navbar-item">home</div>
+        <div class="navbar-item signup">signup</div>
+        <div class="navbar-item">login</div>
     </div>
-  </body>
+</header>
+<main class="main">
+    <div class="content">
+        {% block content %} content {% endblock %}
+    </div>
+    <div class="sidebar">
+        {% block sidebar %} sidebar {% endblock %}
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer-item">terms of use</div>
+    <div class="footer-item">privacy policy</div>
+    <div class="footer-item">about</div>
+    <div class="footer-item">etc</div>
+</footer>
+</body>
 </html>
