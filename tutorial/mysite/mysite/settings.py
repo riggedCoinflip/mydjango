@@ -35,7 +35,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
-    'home.apps.HomeConfig',
 
     'django_fastdev',
 
