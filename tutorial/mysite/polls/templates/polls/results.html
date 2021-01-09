@@ -11,8 +11,7 @@
     {% endfor %}
   </ul>
 
-  <form action="{% url 'polls:detail' question.id %}">
-    <input type="submit" value="Vote again?"/>
-  </form>
+  {% include "./button_to_detail.html" %}
   {% include "./button_to_home.html" %}
+
 {% endblock %}
