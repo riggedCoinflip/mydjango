@@ -76,6 +76,7 @@ def vote(request, question_id):
         # Redisplay the question voting form.
         return render(request, 'polls/detail.html', {
             'question': question,
+            'recent_polls': recent_polls(), #better: make this a class based view and inherit WithSidebar - need to get that working tho
             'error_message': "You didn't select a choice.",
         })
     else:
