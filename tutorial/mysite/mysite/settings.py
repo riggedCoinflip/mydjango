@@ -34,10 +34,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #myAPPS
     'polls.apps.PollsConfig',
-
+    'users.apps.UsersConfig',
+    #other repos
     'django_fastdev',
-
+    #DJANGO
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
