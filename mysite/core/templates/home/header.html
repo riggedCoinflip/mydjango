@@ -1,6 +1,6 @@
 header
 <div class="navbar">
-  <div class="navbar-item">home</div>
+  <div class="navbar-item"><a href="{% url 'polls:index' %}">Home</a></div>
   <div class="navbar-item signup"><a href="{% url 'signup' %}">Signup</a></div>
   <div class="navbar-item">
     {% if user.is_authenticated %}
