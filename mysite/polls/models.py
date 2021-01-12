@@ -5,11 +5,12 @@ from django.db.models import DateTimeField
 from django.urls import reverse
 from django.utils import timezone
 
+from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
+    author: User = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     pub_date: DateTimeField = models.DateTimeField('date published', default=timezone.now)
 
     def __str__(self):
