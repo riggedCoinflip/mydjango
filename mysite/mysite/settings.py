@@ -32,12 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # myAPPS
+    ## my apps
     'polls.apps.PollsConfig',
     'core.apps.CoreConfig',
-    # other repos
+    ## other repos
+    # better debugging - not needed for prod
     'django_fastdev',
-    # DJANGO
+    # https://github.com/AndrewIngram/django-extra-views/
+    'extra_views',
+    ## DJANGO
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
