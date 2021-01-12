@@ -1,7 +1,7 @@
 {% if recent_polls %}
   {% for question in recent_polls %}
     <div><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
-    <div>
+    </div>
   {% endfor %}
 {% else %}
 <div>No polls are available.</div>
