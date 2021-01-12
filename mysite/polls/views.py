@@ -23,7 +23,7 @@ class WithSidebar:
 
 
 class HomeView(WithSidebar, generic.CreateView):
-    template_name = 'polls/home.html'
+    template_name = 'polls/index.html'
     model = Question
     form_class = QuestionForm
     success_url = None
