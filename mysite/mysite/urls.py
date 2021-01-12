@@ -1,7 +1,5 @@
 """mysite URL Configuration
 
-webseite hosten deutschland recht
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -28,5 +26,6 @@ urlpatterns = [
     path('signup/', core_views.SignupView.as_view(), name='signup'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    # admin
     path('admin/', admin.site.urls),
 ]
