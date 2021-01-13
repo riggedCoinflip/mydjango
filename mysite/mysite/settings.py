@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'polls.apps.PollsConfig',
     'core.apps.CoreConfig',
     ## other repos
-    # better debugging - not needed for prod
+    # https://github.com/boxed/django-fastdev
     'django_fastdev',
     # https://github.com/AndrewIngram/django-extra-views/
     'extra_views',
