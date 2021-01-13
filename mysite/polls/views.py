@@ -1,10 +1,10 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
-from .forms import QuestionForm, QuestionInlineFormSet
+from .forms import QuestionForm, ChoiceForm
 from .models import Choice, Question
 
 
@@ -16,41 +16,26 @@ def recent_polls(how_many=5):
 
 
 class WithSidebar:
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(WithSidebar, self).get_context_data(**kwargs)
         context['recent_polls'] = recent_polls()
         return context
 
 
-class HomeView(WithSidebar, generic.CreateView):
-    template_name = 'polls/index.html'
+class ChoiceInline(InlineFormSetFactory):
+    model = Choice
+    form_class = ChoiceForm
+
+
+class CreateQuestionView(WithSidebar, CreateWithInlinesView):
     model = Question
+    inlines = (ChoiceInline,)
     form_class = QuestionForm
-    success_url = None
+    template_name = 'polls/index.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        if self.request.POST:
-            context['question_form'] = QuestionForm(self.request.POST)
-            context['choices_form_set'] = QuestionInlineFormSet(self.request.POST)
-        else:
-            context['question_form'] = QuestionForm()
-            context['choices_form_set'] = QuestionInlineFormSet()
-        return context
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        choices = context['choices_form_set']
-        if choices.is_valid() and form.is_valid():
-            question_instance = form.save()
-            for choice in choices:
-                choice = choice.instance
-                # get id of the newly created question.
-                choice.question_id = question_instance.id
-                choice.save()
-            return HttpResponseRedirect(f'{question_instance.id}')
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+    def forms_valid(self, form, inlines):
+        form.instance.author = self.request.user
+        return super(CreateQuestionView, self).forms_valid(form, inlines)
 
 
 class DetailView(WithSidebar, generic.DetailView):
@@ -77,8 +62,8 @@ def vote(request, question_id):
         # Redisplay the question voting form.
         return render(request, 'polls/detail.html', {
             'question': question,
-            'recent_polls': recent_polls(),
-            # better: make this a class based view and inherit WithSidebar - need to get that working tho
+            'recent_polls': recent_polls(), # better: make this a class based view and inherit WithSidebar - need to
+            # get that working tho
             'error_message': "You didn't select a choice.",
         })
     else:
@@ -87,4 +72,4 @@ def vote(request, question_id):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        return redirect(reverse('polls:results', args=(question.id,)))

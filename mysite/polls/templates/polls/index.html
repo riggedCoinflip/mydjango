@@ -12,13 +12,9 @@
 {% block content %}
   <form class="submit-question" action="" method="post">
     {% csrf_token %}
-    <div class="submit-question-item">
-      {{ question_form }}
-      {{ choices_form_set.management_form }}
-    </div>
-    <hr>
-    {% for choice in choices_form_set %}
-      <div class="submit-question-item">{{ choice }}</div>
+    {{ form }}
+    {% for formset in inlines %}
+      {{ formset.as_p }}
     {% endfor %}
     <input class="submit-question-item" type="submit" value="Submit Question"/>
   </form>

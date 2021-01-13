@@ -18,7 +18,7 @@ class QuestionForm(forms.ModelForm):
         }
 
 
-class ChoiceInline(forms.ModelForm):
+class ChoiceForm(forms.ModelForm):
     class Meta:
         model = Choice
         fields = ('choice_text',)
@@ -29,7 +29,3 @@ class ChoiceInline(forms.ModelForm):
             'choice_text': forms.TextInput(attrs={'placeholder': 'Enter Choice here', 'size': questionFormSize})
         }
 
-
-QuestionInlineFormSet = inlineformset_factory(
-    Question, Choice, form=ChoiceInline, min_num=2, max_num=10, extra=0, can_delete=False,
-)
