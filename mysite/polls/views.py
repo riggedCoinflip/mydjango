@@ -34,7 +34,10 @@ class CreateQuestionView(WithSidebar, CreateWithInlinesView):
     template_name = 'polls/index.html'
 
     def forms_valid(self, form, inlines):
-        form.instance.author = self.request.user
+        if self.request.user.is_authenticated:
+            form.instance.author = self.request.user
+        else:
+            form.instance.author = None
         return super(CreateQuestionView, self).forms_valid(form, inlines)
 
 

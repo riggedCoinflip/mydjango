@@ -12,7 +12,12 @@
 {% block content %}
   <div>
     <h1>{{ question.question_text }}</h1><br>
-    by {{ question.author }}
+    by
+    {% if question.author %}
+      {{ question.author }}
+    {% else %}
+      Anonymous
+    {% endif %}
 
 
 
