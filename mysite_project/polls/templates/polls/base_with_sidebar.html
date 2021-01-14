@@ -1,0 +1,8 @@
+{% extends "home/base.html" %}
+
+{% block main %}
+  {{ block.super }}
+  <div class="sidebar">
+    {% block sidebar %} {% include "./recent_polls.html" %} {% endblock %}
+  </div>
+{% endblock %}

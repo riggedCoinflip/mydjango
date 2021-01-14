@@ -13,8 +13,6 @@ import os
 import json
 from pathlib import Path
 
-with open('mysite/secrets.key') as f:
-    secrets = json.load(f)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets['django']['secret']
+SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,16 +81,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydjango',
-        'USER': secrets['database']['username'],
-        'PASSWORD': secrets['database']['password'],
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+
+
 
 # used for github actions
 if os.environ.get('GITHUB_WORKFLOW'):
@@ -106,7 +96,20 @@ if os.environ.get('GITHUB_WORKFLOW'):
            'PORT': '5432',
         }
     }
-
+else:
+    #localhost TODO fix for prod
+    with open('mysite/secrets.key') as f:
+        secrets = json.load(f)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'mydjango',
+            'USER': secrets['database']['username'],
+            'PASSWORD': secrets['database']['password'],
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
