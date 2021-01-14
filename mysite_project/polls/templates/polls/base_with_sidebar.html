@@ -2,9 +2,7 @@
 
 {% block main %}
   {{ block.super }}
-  {% block sidebar %}
-    <div class="sidebar">
-      {% block sidebar %} {% include "./recent_polls.html" %} {% endblock %}
-    </div>
-  {% endblock %}
+  <div class="sidebar">
+    {% block sidebar %} {% include "./recent_polls.html" %} {% endblock %}
+  </div>
 {% endblock %}
