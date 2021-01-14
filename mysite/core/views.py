@@ -11,4 +11,4 @@ class SignupView(generic.CreateView):
     form_class = UserCreationForm
 
 class ImpressumView(generic.TemplateView):
-    template_name = 'impressum/impressum.html'
+    template_name = 'legal/impressum.html'

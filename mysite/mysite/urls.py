@@ -23,7 +23,7 @@ urlpatterns = [
     # apps
     path('polls/', include('polls.urls')),
     # core
-    path('impressum/', core_views.ImpressumView.as_view(), name='impressum'),
+    path('legal/', core_views.ImpressumView.as_view(), name='legal'),
     path('signup/', core_views.SignupView.as_view(), name='signup'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
