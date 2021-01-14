@@ -4,7 +4,7 @@ on: [push]
 
 defaults:
   run:
-    working-directory: ./mysite
+    working-directory: ./mysite_project
 
 jobs:
   build:
