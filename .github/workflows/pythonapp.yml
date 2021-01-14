@@ -2,6 +2,10 @@ name: Python application
 
 on: [push]
 
+defaults:
+  run:
+    working-directory: ./mysite
+
 jobs:
   build:
 
