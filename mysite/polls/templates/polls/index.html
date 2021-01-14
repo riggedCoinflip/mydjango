@@ -12,7 +12,8 @@
 {% block content %}
   <form class="submit-question" action="" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
+    <hr>
     {% for formset in inlines %}
       {{ formset.as_p }}
     {% endfor %}

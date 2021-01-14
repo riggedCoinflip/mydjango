@@ -25,7 +25,14 @@ class WithSidebar:
 class ChoiceInline(InlineFormSetFactory):
     model = Choice
     form_class = ChoiceForm
-
+    factory_kwargs = {
+        'min_num': 2,
+        'validate_min': True,
+        'max_num': 20,
+        'validate_max': True,
+        'extra': 2,
+        'can_delete': False
+    }
 
 class CreateQuestionView(WithSidebar, CreateWithInlinesView):
     model = Question

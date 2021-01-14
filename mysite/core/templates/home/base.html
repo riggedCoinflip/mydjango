@@ -16,18 +16,14 @@
   {% endblock %}
 </header>
 <main class="main">
-  <div class="content">
-    {% block content %} content {% endblock %}
-  </div>
-  <div class="sidebar">
-    {% block sidebar %} sidebar {% endblock %}
-  </div>
+  {% block main %}
+    <div class="content">
+      {% block content %} content {% endblock %}
+    </div>
+  {% endblock %}
 </main>
 <footer class="footer">
-  <div class="footer-item">terms of use</div>
-  <div class="footer-item">privacy policy</div>
-  <div class="footer-item">about</div>
-  <div class="footer-item">etc</div>
+  {% include './footer.html' %}
 </footer>
 </body>
 </html>
