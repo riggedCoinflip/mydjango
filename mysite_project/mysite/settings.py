@@ -98,7 +98,7 @@ if os.environ.get('GITHUB_WORKFLOW'):
     }
 else:
     #localhost TODO fix for prod
-    with open('mysite_projecz/secrets.key') as f:
+    with open('mysite/secrets.key') as f:
         secrets = json.load(f)
     DATABASES = {
         'default': {
