@@ -59,7 +59,7 @@ class QuestionIndexViewTests(TestCase):
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No polls are available.")
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+        self.assertQuerysetEqual(response.context['recent_polls'], [])
 
     def test_past_question(self):
         """
@@ -69,7 +69,7 @@ class QuestionIndexViewTests(TestCase):
         create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
-            response.context['latest_question_list'],
+            response.context['recent_polls'],
             ['<Question: Past question.>']
         )
 
@@ -81,7 +81,7 @@ class QuestionIndexViewTests(TestCase):
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse('polls:index'))
         self.assertContains(response, "No polls are available.")
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+        self.assertQuerysetEqual(response.context['recent_polls'], [])
 
     def test_future_question_and_past_question(self):
         """
@@ -92,7 +92,7 @@ class QuestionIndexViewTests(TestCase):
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
-            response.context['latest_question_list'],
+            response.context['recent_polls'],
             ['<Question: Past question.>']
         )
 
@@ -104,6 +104,6 @@ class QuestionIndexViewTests(TestCase):
         create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
-            response.context['latest_question_list'],
+            response.context['recent_polls'],
             ['<Question: Past question 2.>', '<Question: Past question 1.>']
         )
