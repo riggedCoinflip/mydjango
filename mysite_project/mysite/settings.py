@@ -125,7 +125,7 @@ LOGOUT_REDIRECT_URL = '/polls'
 if os.getenv('DYNO'):
     import django_heroku
     django_heroku.settings(locals())
-    DEBUG = False
+    DEBUG = True #TODO FIX FOR PROD
 
     # SECURITY WARNING: keep the secret key used in production secret! - django_heroku loads secret_key
 
