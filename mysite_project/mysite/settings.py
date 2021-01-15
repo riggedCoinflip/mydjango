@@ -125,23 +125,16 @@ LOGOUT_REDIRECT_URL = '/polls'
 if os.getenv('DYNO'):
     import django_heroku
     django_heroku.settings(locals())
-    DEBUG = True #TODO FIX FOR PROD
 
     # SECURITY WARNING: keep the secret key used in production secret! - django_heroku loads secret_key
+    DEBUG = True #TODO FIX FOR PROD
 
-    '''
-    #TODO setup DB on prod
+    import dj_database_url
+    db_from_env = dj_database_url.config()
     DATABASES = {
-        'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
-        }
+        'default': db_from_env
     }
-    '''
+
 # used for github actions
 elif os.getenv('GITHUB_WORKFLOW'):
     # SECURITY WARNING: keep the secret key used in production secret!
