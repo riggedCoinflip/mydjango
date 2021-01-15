@@ -124,14 +124,11 @@ if os.getenv('DYNO'):
     # if on prod environment (heroku) - see details:
     # https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
 
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+
     import django_heroku
     django_heroku.settings(locals())
-
-    # SECURITY WARNING: keep the secret key used in production secret! - django_heroku loads secret_key
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True #TODO FIX FOR PROD
-
 
 elif os.getenv('GITHUB_WORKFLOW'):
     # used for github actions
@@ -153,7 +150,6 @@ elif os.getenv('GITHUB_WORKFLOW'):
     }
 else:
     # localhost
-    #print(os.environ)
 
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' # local secret
