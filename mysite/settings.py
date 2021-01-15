@@ -120,29 +120,19 @@ LOGOUT_REDIRECT_URL = '/polls'
 
 
 ## enable code conditional depending on the environment
-# if on prod environment (heroku) - see details:
-# https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
 if os.getenv('DYNO'):
+    # if on prod environment (heroku) - see details:
+    # https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+
     import django_heroku
     django_heroku.settings(locals())
-    DEBUG = True #TODO FIX FOR PROD
 
-    # SECURITY WARNING: keep the secret key used in production secret! - django_heroku loads secret_key
-
-
-    #TODO setup DB on prod
-    DATABASES = {
-        'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
-        }
-    }
-# used for github actions
 elif os.getenv('GITHUB_WORKFLOW'):
+    # used for github actions
+
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' #local secret
 
@@ -159,7 +149,7 @@ elif os.getenv('GITHUB_WORKFLOW'):
         }
     }
 else:
-    #print(os.environ)
+    # localhost
 
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' # local secret
@@ -172,7 +162,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'mydjango',
             'USER': 'riggedCoinflip',
-            'PASSWORD': 'sefu(/4thsurISto',
+            'PASSWORD': 'Z6bnj6jkgtrPhzZz89',
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
