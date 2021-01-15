@@ -129,7 +129,7 @@ if os.getenv('DYNO'):
 
     # SECURITY WARNING: keep the secret key used in production secret! - django_heroku loads secret_key
 
-
+    '''
     #TODO setup DB on prod
     DATABASES = {
         'default': {
@@ -141,6 +141,7 @@ if os.getenv('DYNO'):
            'PORT': '5432',
         }
     }
+    '''
 # used for github actions
 elif os.getenv('GITHUB_WORKFLOW'):
     # SECURITY WARNING: keep the secret key used in production secret!
