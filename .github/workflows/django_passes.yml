@@ -12,10 +12,6 @@ on:
       - prod
       - dev
 
-defaults:
-  run:
-    working-directory: ./mysite_project
-
 jobs:
   build:
 

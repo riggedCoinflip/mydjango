@@ -1,2 +1,2 @@
-web: gunicorn --pythonpath mysite_project mysite.wsgi
+web: gunicorn mysite.wsgi
 release: python manage.py migrate
