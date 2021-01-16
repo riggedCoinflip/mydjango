@@ -20,7 +20,7 @@ from django.urls import include, path
 from core import views as core_views
 
 urlpatterns = [
-    #home TODO create home
+    # home TODO create home
     # apps
     path('polls/', include('polls.urls')),
     # core
