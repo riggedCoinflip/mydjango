@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-import json
 from pathlib import Path
 
 
@@ -19,12 +18,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -78,39 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-
-
-
-# used for github actions
-if os.environ.get('GITHUB_WORKFLOW'):
-    DATABASES = {
-        'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
-        }
-    }
-else:
-    #localhost TODO fix for prod
-    with open('mysite/secrets.key') as f:
-        secrets = json.load(f)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'mydjango',
-            'USER': secrets['database']['username'],
-            'PASSWORD': secrets['database']['password'],
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-    }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -145,11 +105,64 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
 LOGIN_REDIRECT_URL = '/polls'
 LOGOUT_REDIRECT_URL = '/polls'
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+
+## enable code conditional depending on the environment
+if os.getenv('DYNO'):
+    # if on prod environment (heroku) - see details:
+    # https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+
+    import django_heroku
+    django_heroku.settings(locals())
+
+elif os.getenv('GITHUB_WORKFLOW'):
+    # used for github actions
+
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' #local secret
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    DATABASES = {
+        'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'github_actions',
+           'USER': 'postgres',
+           'PASSWORD': 'postgres',
+           'HOST': '127.0.0.1',
+           'PORT': '5432',
+        }
+    }
+else:
+    # localhost
+
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' # local secret
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    #TODO use env variables
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'mydjango',
+            'USER': 'riggedCoinflip',
+            'PASSWORD': 'Z6bnj6jkgtrPhzZz89',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }

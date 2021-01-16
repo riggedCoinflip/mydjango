@@ -1,3 +1,11 @@
+pylint:
+>pylint --generate-rcfile > .pylintrc
+
+requirements.txt:
+>pip freeze > requirements.txt
+
+
+
 deactivate - leave venv
 
 django-admin startproject mysite  - create new project

@@ -2,19 +2,11 @@ name: Django passes
 
 on:
   push:
-    branches-ignore:
-      - master
-      - prod
-      - 'feature/**'
-  pull_request:
     branches:
+      - 'feature/**'
       - master
       - prod
       - dev
-
-defaults:
-  run:
-    working-directory: ./mysite_project
 
 jobs:
   build:

@@ -1,0 +1,1 @@
+git cannot track empty directories, but we need this one to collectstatic in for prod. Leave it as is

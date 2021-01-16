@@ -11,20 +11,16 @@ name: Lint Code Base
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 #
 
-#############################
-# Start the job on all push #
-#############################
+#########################
+# Start the job on push #
+#########################
 on:
   push:
-    branches-ignore:
-      - master
-      - prod
-      - 'feature/**'
-  pull_request:
     branches:
-      - master
       - prod
+      - master
       - dev
+      - 'feature/**'
 
 ###############
 # Set the Job #
@@ -58,3 +54,13 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # validate via pylint
+          VALIDATE_PYTHON_BLACK: false
+          VALIDATE_PYTHON_FLAKE8: false
+          VALIDATE_PYTHON_ISORT: false
+
+          # validate with curlybraces lint because Djangos template
+          #TODO add curlylint github action
+          VALIDATE_HTML: false
+
