@@ -14,8 +14,8 @@ def recent_polls(how_many=5):
     ).order_by('-pub_date')[:how_many]
     return polls
 
-
-class WithSidebar:
+# we use how MRO works for multiinheritance so that super calls generic view
+class WithSidebar:  # pylint: disable=E1101
     def get_context_data(self, **kwargs):
         context = super(WithSidebar, self).get_context_data(**kwargs)
         context['recent_polls'] = recent_polls()
