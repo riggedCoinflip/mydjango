@@ -1,8 +1,8 @@
 .results {
-    justify-self: flex-start;
-    flex-basis: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #ffec3e;
+  justify-self: flex-start;
+  flex-basis: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #ffec3e;
 }
