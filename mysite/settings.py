@@ -13,6 +13,16 @@ import os
 from pathlib import Path
 
 
+if os.getenv('DYNO'):
+    DJANGO_HOST = 'production'
+elif os.getenv('GITHUB_WORKFLOW'):
+    DJANGO_HOST = 'testing'
+else:
+    DJANGO_HOST = 'development'
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -119,7 +129,7 @@ LOGOUT_REDIRECT_URL = '/polls'
 
 
 ## enable code conditional depending on the environment
-if os.getenv('DYNO'):
+if DJANGO_HOST == 'production':
     # if on prod environment (heroku) - see details:
     # https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
 
@@ -129,14 +139,7 @@ if os.getenv('DYNO'):
     import django_heroku
     django_heroku.settings(locals())
 
-elif os.getenv('GITHUB_WORKFLOW'):
-    # used for github actions
-
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' #local secret
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+if DJANGO_HOST == 'testing':
     DATABASES = {
         'default': {
            'ENGINE': 'django.db.backends.postgresql',
@@ -147,14 +150,8 @@ elif os.getenv('GITHUB_WORKFLOW'):
            'PORT': '5432',
         }
     }
-else:
-    # localhost
 
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' # local secret
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+if DJANGO_HOST == 'development':
     #TODO use env variables
     DATABASES = {
         'default': {
