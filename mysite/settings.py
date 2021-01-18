@@ -33,6 +33,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+if DJANGO_HOST != 'production':
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4'  # local secret, exposing it to github
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+
 INSTALLED_APPS = [
     ## my apps
     'polls.apps.PollsConfig',
