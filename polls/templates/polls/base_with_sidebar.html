@@ -3,6 +3,8 @@
 {% block main %}
   {{ block.super }}
   <div class="sidebar">
-    {% block sidebar %} {% include "./recent_polls.html" %} {% endblock %}
+    {% block sidebar %}
+      {% include "polls/recent_polls.html" %}
+    {% endblock %}
   </div>
 {% endblock %}
