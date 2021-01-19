@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # https://github.com/django-crispy-forms/django-crispy-forms
     'crispy_forms',
     # https://github.com/django-crispy-forms/crispy-bootstrap5
-    'crispy_bootstap5',
+    'crispy_bootstrap5',
     ## DJANGO internal
     'django.contrib.admin',
     'django.contrib.auth',
@@ -93,6 +93,20 @@ TEMPLATES = [
         },
     },
 ]
+
+'''
+#https://devcenter.heroku.com/articles/memcachier#django
+if DJANGO_HOST == 'production':
+    #use caching
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+'''
+
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
