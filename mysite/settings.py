@@ -49,7 +49,11 @@ INSTALLED_APPS = [
     'django_fastdev',
     # https://github.com/AndrewIngram/django-extra-views/
     'extra_views',
-    ## DJANGO
+    # https://github.com/django-crispy-forms/django-crispy-forms
+    'crispy_forms',
+    # https://github.com/django-crispy-forms/crispy-bootstrap5
+    'crispy_bootstap5',
+    ## DJANGO internal
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,6 +61,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
