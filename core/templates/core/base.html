@@ -23,19 +23,43 @@
 
 <header class="header">
   {% block header %}
-    {% include './header.html' %}
+    <div class="navbar">
+      {% block navbar %}
+        <div class="navbar">
+          <div class="navbar-item"><a href="{% url 'core:index' %}">Home</a></div>
+          <div class="navbar-item"><a href="{% url 'polls:index' %}">Polls</a></div>
+          <div class="navbar-item"><a href="https://github.com/riggedCoinflip/mydjango">GitHub</a></div>
+          <div class="navbar-item signup"><a href="{% url 'core:signup' %}">Signup</a></div>
+          <div class="navbar-item">
+            {% if user.is_authenticated %}
+              {{ user.username }}<br>
+              <a href="{% url 'core:logout' %}">Logout</a>
+            {% else %}
+              <a href="{% url 'core:login' %}">Login</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endblock %}
+    </div>
   {% endblock %}
 </header>
 
 <main class="main">
   {% block main %}
-    {% include './main.html' %}
+    <div class="content">
+      {% block content %}
+        content
+      {% endblock %}
+    </div>
   {% endblock %}
 </main>
 
 <footer class="footer">
   {% block footer %}
-    {% include './footer.html' %}
+    <div class="footer-item">terms of use</div>
+    <div class="footer-item">privacy policy</div>
+    <div class="footer-item">about</div>
+    <div class="footer-item"><a href="{% url 'core:legal' %}">Impressum</a></div>
   {% endblock %}
 </footer>
 
