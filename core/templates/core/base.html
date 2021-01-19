@@ -21,24 +21,10 @@
 
 <header class="header">
   {% block header %}
-    <div class="navbar">
-      {% block navbar %}
-        <div class="navbar">
-          <div class="navbar-item"><a href="{% url 'core:index' %}">Home</a></div>
-          <div class="navbar-item"><a href="{% url 'polls:index' %}">Polls</a></div>
-          <div class="navbar-item"><a href="https://github.com/riggedCoinflip/mydjango">GitHub</a></div>
-          <div class="navbar-item signup"><a href="{% url 'core:signup' %}">Signup</a></div>
-          <div class="navbar-item">
-            {% if user.is_authenticated %}
-              {{ user.username }}<br>
-              <a href="{% url 'core:logout' %}">Logout</a>
-            {% else %}
-              <a href="{% url 'core:login' %}">Login</a>
-            {% endif %}
-          </div>
-        </div>
-      {% endblock %}
-    </div>
+    Cookie Consent
+    {% block navbar %}
+      {% include 'core/navbar.html' %}
+    {% endblock %}
   {% endblock %}
 </header>
 
