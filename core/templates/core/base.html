@@ -39,12 +39,35 @@
 </main>
 
 <footer class="footer">
-  {% block footer %}
-    <div class="footer-item">terms of use</div>
-    <div class="footer-item">privacy policy</div>
-    <div class="footer-item">about</div>
-    <div class="footer-item"><a href="{% url 'core:legal' %}">Impressum</a></div>
-  {% endblock %}
+  <!-- TODO make footer even prettier -->
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Left -->
+      <div class="navbar-nav me-auto">
+        <a href="https://github.com/riggedCoinflip/mydjango">
+          <em id="social-github" class="fab fa-github-square fa-3x"></em>
+        </a>
+        <a href="mailto:tikalker@gmail.com"><em id="social-mailto" class="fas fa-envelope-square fa-3x"></em></a>
+      </div>
+      <!-- Right -->
+      <div class="">
+        <ul class="navbar-nav ms-auto">
+          <li>
+            <a class="nav-link" href="">Terms of Use</a>
+          </li>
+          <li>
+            <a class="nav-link" href="">Privacy Policy</a>
+          </li>
+          <li>
+            <a class="nav-link" href="">About</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'core:legal' %}">Impressum</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </footer>
 
 
@@ -52,5 +75,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
+
+<!-- Fontawesome -->
+<script src="https://kit.fontawesome.com/fe62960140.js" crossorigin="anonymous"></script>
 </body>
 </html>
