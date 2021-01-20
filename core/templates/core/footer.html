@@ -1,0 +1,38 @@
+{% load static %}
+<!-- TODO make footer even prettier -->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Left -->
+    <div class="">
+      <ul class="navbar-nav me-auto">
+        <li>
+          <a href="https://github.com/riggedCoinflip/mydjango">
+            <em id="social-github" class="fab fa-github-square fa-3x"></em>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:tikalker@gmail.com">
+            <em id="social-mailto" class="fas fa-envelope-square fa-3x"></em>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Right -->
+    <div class="">
+      <ul class="navbar-nav ms-auto">
+        <li>
+          <a class="nav-link" href="">Terms of Use</a>
+        </li>
+        <li>
+          <a class="nav-link" href="">Privacy Policy</a>
+        </li>
+        <li>
+          <a class="nav-link" href="">About</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{% url 'core:legal' %}">Impressum</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
