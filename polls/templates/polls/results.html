@@ -1,4 +1,4 @@
-{% extends "./base_with_sidebar.html" %}
+{% extends "polls/base_with_sidebar.html" %}
 
 {% block title %} {{ question.question_text }} {% endblock %}
 
@@ -11,7 +11,7 @@
     {% endfor %}
   </div>
 
-  {% include "./button_to_detail.html" %}
-  {% include "./button_to_index.html" %}
+  {% include "polls/button_to_detail.html" %}
+  {% include "polls/button_to_index.html" %}
 
 {% endblock %}
