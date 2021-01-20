@@ -17,19 +17,17 @@
   <title>{% block title %} myDjango {% endblock %}</title>
 
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
-<header class="header">
+<header>
   {% block header %}
-    Cookie Consent
-    {% block navbar %}
-      {% include 'core/navbar.html' %}
-    {% endblock %}
+    <!-- TODO cookie consent -->
+    {% include 'core/navbar.html' %}
   {% endblock %}
 </header>
 
 
-<main class="main">
+<main>
   <div class="container-fluid">
     <div class="row py-3">
       <!-- empty col for centering -->
@@ -38,20 +36,16 @@
         {% block content %}{% endblock %}
       </div>
       <!-- hr only on small devices -->
-      <div class="d-md-none"><hr></div>
-      <nav class="navbar col-sm-12 col-md-2" id="sticky sidebar">
-        {% block sidebar %}{% endblock %}
-      </nav>
+      <div class="d-md-none">
+        <hr>
+      </div>
+      {% block sidebar %}{% endblock %}
     </div>
   </div>
 </main>
 
 
-<footer class="footer">
-  {% block footer %}
-    {% include 'core/footer.html' %}
-  {% endblock %}
-</footer>
+{% include 'core/footer.html' %}
 
 
 <!-- Bootstrap Bundle with Popper -->

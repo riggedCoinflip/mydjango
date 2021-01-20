@@ -1,38 +1,40 @@
 {% load static %}
-<!-- TODO make footer even prettier -->
-<nav class="navbar navbar-dark bg-dark">
+<footer class="footer mt-auto bg-dark">
   <div class="container-fluid">
-    <!-- Left -->
-    <div class="">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <a href="https://github.com/riggedCoinflip/mydjango">
-            <em id="social-github" class="fab fa-github-square fa-3x"></em>
-          </a>
+    <!-- Grid row -->
+    <div class="row align-items-end">
+      <!-- Multi-column 1 of 2-->
+      <div class="col-md-8 col-12 text-center">
+        <!-- Row div again to space links accordingly -->
+        <div class="row">
+          <a class="col-md col-6 link-light" href="!">About</a>
+          <a class="col-md col-6 link-light" href="!">Contact</a>
+          <a class="col-md col-6 link-light" href="!">Cookie Policy</a>
+          <a class="col-md col-6 link-light" href="!">Impressum</a>
+        </div>
+      </div>
+
+      <!-- Multi-column 2 of 2 -->
+      <div class="col-md-4 col-12 d-flex justify-content-center">
+        <!-- social icons -->
+        <a class="px-2" href="https://github.com/riggedCoinflip" target="_blank" role="button">
+          <em class="fab fa-github fa-2x text-primary mr-2" id="social-github"></em>
+        </a>
+        <a class="px-2" href="mailto:tikalker@gmail.com" target="_blank" class="" role="button">
+          <em class="fas fa-envelope-square fa-2x text-info mx-2"></em></a>
         </li>
-        <li>
-          <a href="mailto:tikalker@gmail.com">
-            <em id="social-mailto" class="fas fa-envelope-square fa-3x"></em>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!-- Right -->
-    <div class="">
-      <ul class="navbar-nav ms-auto">
-        <li>
-          <a class="nav-link" href="">Terms of Use</a>
-        </li>
-        <li>
-          <a class="nav-link" href="">Privacy Policy</a>
-        </li>
-        <li>
-          <a class="nav-link" href="">About</a>
-        </li>
-        <li>
-          <a class="nav-link" href="{% url 'core:legal' %}">Impressum</a>
-        </li>
-      </ul>
+      </div>
+      <!-- Full-width column -->
+      <div class="col-12 bg-primary">
+        <!-- Footer Item Content -->
+        <div class="text-center py-2 ">
+          <small class="text-center text-white">
+            Copyright <span>BLOG</span><span>©</span><span class='mr-2'></span>
+            <span><script>document.write(new Date().getFullYear());</script></span>
+            - <span>All Rights Reserved.</span>
+          </small>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
+</footer>
