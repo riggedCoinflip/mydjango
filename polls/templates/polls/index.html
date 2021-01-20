@@ -1,21 +1,17 @@
 {% extends "./base_with_sidebar.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 
 {% block title %} Home {% endblock %}
 
-{% block stylesheets %}
-  {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="{% static 'polls/css/index.css' %}">
-{% endblock %}
 
 {% block content %}
   <form class="submit-question" action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <hr>
     {% for formset in inlines %}
-      {{ formset.as_p }}
+      {{ formset|crispy }}
     {% endfor %}
     <input class="submit-question-item" type="submit" value="Submit Question"/>
   </form>

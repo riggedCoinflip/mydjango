@@ -4,10 +4,6 @@
 
 {% block title %} {{ question.question_text }} {% endblock %}
 
-{% block stylesheets %}
-  {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="{% static 'polls/css/detail.css' %}">
-{% endblock %}
 
 {% block content %}
   <div>
@@ -18,8 +14,6 @@
     {% else %}
       Anonymous
     {% endif %}
-
-
 
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
