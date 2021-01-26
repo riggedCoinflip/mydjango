@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -62,6 +63,12 @@ class DetailView(WithSidebar, generic.DetailView):
 class ResultsView(WithSidebar, generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ResultsView, self).get_context_data(**kwargs)
+        context['votes__sum'] = self.object.choice_set.all().aggregate(Sum('votes'))['votes__sum']
+        print(context)
+        return context
 
 
 def vote(request, question_id):
