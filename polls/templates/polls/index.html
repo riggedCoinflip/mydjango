@@ -9,10 +9,14 @@
   <form class="submit-question" action="" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <hr>
     {% for formset in inlines %}
       {{ formset|crispy }}
     {% endfor %}
-    <input class="submit-question-item" type="submit" value="Submit Question"/>
+    <div class="d-flex justify-content-around">
+      <div>
+        <input class="submit-question-item btn btn-primary" type="submit" value="Submit Question"/>
+      </div>
+      {% include "polls/button_to_index.html" %}
+    </div>
   </form>
 {% endblock %}

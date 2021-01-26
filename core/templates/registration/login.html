@@ -1,18 +1,13 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Registration</title>
-</head>
-<body>
+
 {% block content %}
   <h2>Login</h2>
   <form method="post" action="{% url 'core:login' %}">
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <input type="submit" value="login">
   </form>
+  New here? <a href="{% url 'core:signup' %}">Create an account</a>
 {% endblock %}
-</body>
-</html>
