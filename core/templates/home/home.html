@@ -1,0 +1,97 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %} rigged Coinflip {% endblock %}
+
+{% block content %}
+  <p>
+  <h1>Techstack</h1>
+  <ul>
+    <li>HTML5</li>
+    <li>CSS3</li>
+    <li>Django (Python)</li>
+    <li>Postgres</li>
+    <li>Github Actions</li>
+    <li>Gunicorn</li>
+    <li>Heroku</li>
+    <li>Bootstrap5</li>
+  </ul>
+  </p>
+  <p>
+  <h2>Other Technologies</h2>
+  <ul>
+    <li>Java + Springboot</li>
+    <li>REST API</li>
+    <li>Postman</li>
+    <li>Git</li>
+  </ul>
+  <h1>Words about me</h1>
+  {% lorem p %}
+  </p>
+
+
+  <!-- Carousel wrapper -->
+  <div id="carouselApps" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-bs-target="#carouselApps" data-bs-slide-to="0" class="active"></li>
+      <li data-bs-target="#carouselApps" data-bs-slide-to="1"></li>
+      <li data-bs-target="#carouselApps" data-bs-slide-to="2"></li>
+    </ol>
+
+    <!-- Inner -->
+    <div class="carousel-inner">
+      <!-- Single item -->
+      <div class="carousel-item active">
+        <img
+            src="{% static 'core/images/PollsExample.png' %}"
+            class="d-block w-100"
+            alt="..."
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Polls</h5>
+          <p>Create your own polls or vote in other users polls.</p>
+        </div>
+      </div>
+
+      <!-- Single item -->
+      <div class="carousel-item">
+        <img
+            src="{% static 'core/images/AoCExample.png' %}"
+            class="d-block w-100"
+            alt="..."
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Advent of Code</h5>
+          <p>See my solutions for the 2020 Advent of Code.</p>
+        </div>
+      </div>
+
+      <!-- Single item -->
+      <div class="carousel-item">
+        <img
+            src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
+            class="d-block w-100"
+            alt="..."
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Inner -->
+
+    <!-- Controls -->
+    <a class="carousel-control-prev" href="#carouselApps" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselApps" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
+  <!-- end Carousel wrapper -->
+
+{% endblock %}

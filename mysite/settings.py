@@ -13,6 +13,16 @@ import os
 from pathlib import Path
 
 
+if os.getenv('DYNO'):
+    DJANGO_HOST = 'production'
+elif os.getenv('GITHUB_WORKFLOW'):
+    DJANGO_HOST = 'testing'
+else:
+    DJANGO_HOST = 'development'
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,6 +33,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+if DJANGO_HOST != 'production':
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4'  # local secret, exposing it to github
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+
 INSTALLED_APPS = [
     ## my apps
     'polls.apps.PollsConfig',
@@ -32,7 +49,13 @@ INSTALLED_APPS = [
     'django_fastdev',
     # https://github.com/AndrewIngram/django-extra-views/
     'extra_views',
-    ## DJANGO
+    # https://github.com/django-crispy-forms/django-crispy-forms
+    'crispy_forms',
+    # https://github.com/django-crispy-forms/crispy-bootstrap5
+    'crispy_bootstrap5',
+    # https://pypi.org/project/django-mathfilters/
+    'mathfilters',
+    ## DJANGO internal
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +63,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,9 +92,26 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'filters': 'templatetags.filters',
+            },
         },
     },
 ]
+
+'''
+#https://devcenter.heroku.com/articles/memcachier#django
+if DJANGO_HOST == 'production':
+    #use caching
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+'''
+
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -119,7 +163,7 @@ LOGOUT_REDIRECT_URL = '/polls'
 
 
 ## enable code conditional depending on the environment
-if os.getenv('DYNO'):
+if DJANGO_HOST == 'production':
     # if on prod environment (heroku) - see details:
     # https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
 
@@ -129,14 +173,7 @@ if os.getenv('DYNO'):
     import django_heroku
     django_heroku.settings(locals())
 
-elif os.getenv('GITHUB_WORKFLOW'):
-    # used for github actions
-
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' #local secret
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+if DJANGO_HOST == 'testing':
     DATABASES = {
         'default': {
            'ENGINE': 'django.db.backends.postgresql',
@@ -147,14 +184,8 @@ elif os.getenv('GITHUB_WORKFLOW'):
            'PORT': '5432',
         }
     }
-else:
-    # localhost
 
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4' # local secret
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
+if DJANGO_HOST == 'development':
     #TODO use env variables
     DATABASES = {
         'default': {
