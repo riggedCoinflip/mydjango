@@ -8,11 +8,10 @@
 
   {% include 'favicon.html' %}
 
-  {% block stylesheets %}
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  {% endblock %}
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  {% block stylesheets %}{% endblock %}
 
   <title>{% block title %} myDjango {% endblock %}</title>
 
@@ -31,8 +30,9 @@
   <div class="container-fluid">
     <div class="row py-3">
       <!-- empty col for centering -->
-      <div class="col-sm-0 col-md-2"></div>
-      <div class="content col-sm-12 col-md-8" id="content">
+      <div class="col-0 col-md-2"></div>
+
+      <div class="content col-12 col-md-8" id="content">
         {% block content %}{% endblock %}
       </div>
       <!-- hr only on small devices -->
@@ -46,7 +46,6 @@
 
 
 {% include 'core/footer.html' %}
-
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"

@@ -35,8 +35,16 @@
           <input type="submit" class="answer-question-item btn btn-primary" value="Vote">
         </div>
         {% include "polls/button_to_index.html" %}
+        {% include "polls/share.html" %}
       </div>
     </form>
   </div>
+{% endblock %}
+
+{% block scripts %}
+  <!-- activate tooltips -->
+  <script src="{% static 'polls/js/tooltips.js' %}"></script>
+  <!-- copy to clipboard onclick -->
+  <script src="{% static 'polls/js/share.js' %}"></script>
 {% endblock %}
 
