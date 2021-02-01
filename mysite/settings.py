@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     ## my apps
     'polls.apps.PollsConfig',
     'core.apps.CoreConfig',
+    'aoc.apps.AOCConfig',  # advent of code
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
