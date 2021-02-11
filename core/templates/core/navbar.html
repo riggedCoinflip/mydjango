@@ -9,7 +9,7 @@
           <a class="nav-link active" aria-current="page" href="{% url 'core:index' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/riggedCoinflip/mydjango">GitHub</a>
+          <a class="nav-link" href="https://github.com/riggedCoinflip/mydjango" target="_blank">GitHub</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -18,7 +18,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'polls:index' %}">Polls</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="{% url 'aoc:index' %}">Advent of Code</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>

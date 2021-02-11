@@ -8,7 +8,7 @@ urlpatterns = [
     #home
     path('', HomeView.as_view(), name='index'),
     #legal
-    path('legal/', ImpressumView.as_view(), name='legal'),
+    path('legal/', ImpressumView.as_view(), name='impressum'),
     #user
     path('signup/', SignupView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name='login'),

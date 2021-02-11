@@ -1,4 +1,4 @@
-{% extends "home/base.html" %}
+{% extends "core/base.html" %}
 {% load static %}
 
 
@@ -7,7 +7,7 @@
 {% block content %}
   <div class='impressum'><h1>Impressum</h1>
     <p>Angaben gemäß § 5 TMG</p>
-    <p>
+    <p><!-- TODO richtiger wohnort -->
       Timo Kalker<br>
       Musterweg 5<br>
       12345 Muster<br>
@@ -59,6 +59,11 @@
       nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die
       Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von
       Werbeinformationen, etwa durch Spam-Mails, vor.<br>
+    </p>
+
+    <p>
+      <div>Icons erstellt von <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/de/" title="Flaticon">www.flaticon.com</a></div>
+
     </p>
   </div>
 {% endblock %}

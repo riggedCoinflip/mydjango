@@ -1,0 +1,29 @@
+{% load static %}
+<footer class="footer mt-auto bg-dark">
+  <div class="container-fluid">
+    <!-- Grid row -->
+    <div class="row align-items-center">
+      <!-- Multi-column 1 of 2-->
+      <div class="col-md-8 col-12 text-center">
+        <!-- Row div again to space links accordingly -->
+        <div class="row">
+          <a class="col-md col-6 link-light" href="!">About</a>
+          <a class="col-md col-6 link-light" href="!">Contact</a>
+          <a class="col-md col-6 link-light" href="!">Cookie Policy</a>
+          <a class="col-md col-6 link-light" href="{% url 'core:impressum' %}">Impressum</a>
+        </div>
+      </div>
+
+      <!-- Multi-column 2 of 2 -->
+      <div class="col-md-4 col-12 d-flex justify-content-center">
+        <!-- social icons -->
+        <a class="px-2" href="https://github.com/riggedCoinflip" target="_blank" role="button">
+          <span class="fab fa-github fa-2x text-primary mr-2" id="social-github"></span>
+        </a>
+        <a class="px-2" href="mailto:tikalker@gmail.com" target="_blank" class="" role="button">
+          <span class="fas fa-envelope-square fa-2x text-info mx-2"></span></a>
+        </li>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,8 +1,15 @@
-{% if recent_polls %}
-  {% for question in recent_polls %}
-    <div><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
-    </div>
-  {% endfor %}
-{% else %}
-<div>No polls are available.</div>
-{% endif %}
+<nav class="navbar col-sm-12 col-md-2 border-start" id="sidebar">
+  <div class="container-fluid">
+    {% if recent_polls %}
+      <div class="navbar-nav nav-tabs nav-justified">
+        <h3 class="nav-item">Recent Polls</h3>
+        {% for question in recent_polls %}
+          <a class="nav-item nav-link text-primary"
+             href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+        {% endfor %}
+      </div>
+    {% else %}
+      No polls are available.
+    {% endif %}
+  </div>
+</nav>

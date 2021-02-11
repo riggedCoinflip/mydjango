@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     ## my apps
     'polls.apps.PollsConfig',
     'core.apps.CoreConfig',
+    'aoc.apps.AOCConfig',  # advent of code
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     # https://github.com/django-crispy-forms/crispy-bootstrap5
     'crispy_bootstrap5',
+    # https://pypi.org/project/django-mathfilters/
+    'mathfilters',
     ## DJANGO internal
     'django.contrib.admin',
     'django.contrib.auth',
@@ -90,6 +93,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'filters': 'templatetags.filters',
+            },
         },
     },
 ]

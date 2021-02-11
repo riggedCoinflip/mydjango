@@ -1,4 +1,4 @@
-{% extends "./base_with_sidebar.html" %}
+{% extends "polls/base_with_sidebar.html" %}
 {% load static %}
 
 
@@ -7,13 +7,18 @@
 
 {% block content %}
   <div>
-    <h1>{{ question.question_text }}</h1><br>
-    by
-    {% if question.author %}
-      {{ question.author }}
-    {% else %}
-      Anonymous
-    {% endif %}
+    <div class="pb-2">
+      <h3>{{ question.question_text }}</h3>
+      <small>
+        by
+        {% if question.author %}
+          {{ question.author }}
+        {% else %}
+          Anonymous
+        {% endif %}
+      </small>
+    </div>
+
 
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -25,12 +30,21 @@
           <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
         </div>
       {% endfor %}
-      <div class="answer-question-item">
-        <input type="submit" value="Vote">
+      <div class="d-flex justify-content-around">
+        <div>
+          <input type="submit" class="answer-question-item btn btn-primary" value="Vote">
+        </div>
+        {% include "polls/button_to_index.html" %}
+        {% include "polls/share.html" %}
       </div>
     </form>
   </div>
+{% endblock %}
 
-  {% include "./button_to_index.html" %}
+{% block scripts %}
+  <!-- activate tooltips -->
+  <script src="{% static 'polls/js/tooltips.js' %}"></script>
+  <!-- copy to clipboard onclick -->
+  <script src="{% static 'polls/js/share.js' %}"></script>
 {% endblock %}
 

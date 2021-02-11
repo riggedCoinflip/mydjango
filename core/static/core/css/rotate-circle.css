@@ -1,0 +1,129 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600);
+
+.ring-wrapper {
+  position: relative;
+  display: block;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.ring {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  transition: transform 0.25s, box-shadow 0.25s;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.ring-display {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
+.interaction {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 100%;
+  position: absolute;
+}
+
+.ring:hover + .ring {
+  transition: box-shadow 0.25s;
+}
+
+.layer-1 {
+  width: 500px;
+  height: 500px;
+  border-radius: 100%;
+}
+
+.label {
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transform-origin: 50% 0;
+  position: absolute;
+  //transform:rotate(0deg) translate(0, -50%);
+  pointer-events: none;
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  line-height: 100px;
+  font-size: 2em;
+  transition: color 1s;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.label span {
+  display: inline-block;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.label:nth-child(1) {
+  transform: rotate(0deg) translate(0, -50%);
+  //transform: rotate(360deg) translate(0, -50%);
+}
+
+.label:nth-child(2) {
+  transform: rotate(30deg) translate(0, -50%);
+}
+
+.label:nth-child(3) {
+  transform: rotate(60deg) translate(0, -50%);
+}
+
+.label:nth-child(4) {
+  transform: rotate(90deg) translate(0, -50%);
+}
+
+.label:nth-child(5) {
+  transform: rotate(120deg) translate(0, -50%);
+}
+
+.label:nth-child(6) {
+  transform: rotate(150deg) translate(0, -50%);
+}
+
+.label:nth-child(7) {
+  transform: rotate(180deg) translate(0, -50%);
+}
+
+.label:nth-child(8) {
+  transform: rotate(210deg) translate(0, -50%);
+}
+
+.label:nth-child(9) {
+  transform: rotate(240deg) translate(0, -50%);
+}
+
+.label:nth-child(10) {
+  transform: rotate(270deg) translate(0, -50%);
+}
+
+.label:nth-child(11) {
+  transform: rotate(300deg) translate(0, -50%);
+}
+
+.label:nth-child(12) {
+  transform: rotate(330deg) translate(0, -50%);
+}
