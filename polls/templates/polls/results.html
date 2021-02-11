@@ -1,4 +1,5 @@
 {% extends "polls/base_with_sidebar.html" %}
+{% load static %}
 {% load filters %}
 {% load mathfilters %}
 
@@ -43,8 +44,16 @@
   <div class="d-flex justify-content-around">
     {% include "polls/button_to_detail.html" %}
     {% include "polls/button_to_index.html" %}
+    {% include "polls/share.html" %}
   </div>
 
 
 
+{% endblock %}
+
+{% block scripts %}
+  <!-- activate tooltips -->
+  <script src="{% static 'polls/js/tooltips.js' %}"></script>
+  <!-- copy to clipboard onclick -->
+  <script src="{% static 'polls/js/share.js' %}"></script>
 {% endblock %}

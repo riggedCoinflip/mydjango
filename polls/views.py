@@ -67,7 +67,6 @@ class ResultsView(WithSidebar, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(ResultsView, self).get_context_data(**kwargs)
         context['votes__sum'] = self.object.choice_set.all().aggregate(Sum('votes'))['votes__sum']
-        print(context)
         return context
 
 
