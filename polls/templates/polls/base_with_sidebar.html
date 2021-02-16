@@ -1,5 +1,12 @@
 {% extends 'core/base.html' %}
 
 {% block sidebar %}
-  {% include 'polls/recent_polls.html' %}
+  <!-- hr for smaller devices -->
+  <div class="d-lg-none">
+    <hr>
+  </div>
+
+  <div class="col-12 col-lg-2 border-start">
+    {% include 'polls/recent_polls.html' %}
+  </div>
 {% endblock %}
