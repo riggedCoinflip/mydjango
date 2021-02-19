@@ -14,13 +14,8 @@ name: Lint Code Base
 #########################
 # Start the job on push #
 #########################
-on:
-  push:
-    branches:
-      - prod
-      - master
-      - dev
-      - 'feature/**'
+on: push
+
 
 ###############
 # Set the Job #
