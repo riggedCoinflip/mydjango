@@ -4,10 +4,10 @@
 
 {% block content %}
   <h2>Login</h2>
-  <form method="post" action="{% url 'core:login' %}">
+  <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="login">
   </form>
-  New here? <a href="{% url 'core:signup' %}">Create an account</a>
+  New here? <a href="{% url 'signup' %}">Create an account</a>
 {% endblock %}

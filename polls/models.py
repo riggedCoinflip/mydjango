@@ -5,7 +5,7 @@ from django.db.models import DateTimeField
 from django.urls import reverse
 from django.utils import timezone
 
-from django.contrib.auth.models import User
+from users.models import User
 
 
 class Question(models.Model):
