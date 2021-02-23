@@ -9,42 +9,46 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+
 import os
+from sys import exit
 from pathlib import Path
+from dotenv import load_dotenv
+import django_heroku
 
+load_dotenv()
 
-if os.getenv('DYNO'):
+if os.getenv('PRODUCTION'):
     DJANGO_HOST = 'production'
+    DEBUG = False
 elif os.getenv('GITHUB_WORKFLOW'):
     DJANGO_HOST = 'testing'
-else:
+    DEBUG = False
+elif os.getenv('DEVELOPMENT'):
     DJANGO_HOST = 'development'
-
-
-
+    DEBUG = True
+else:
+    print("could not find the right environment. Script will now exit for safety")
+    exit()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # managed by django_heroku for prod
 
 # Application definition
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-if DJANGO_HOST != 'production':
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = '2x$6a^ai+)@zp+sbypq2i_qjyh*6exi+mnb*8*d+llubwaciq4'  # local secret, exposing it to github
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
 
 INSTALLED_APPS = [
     ## my apps
     'polls.apps.PollsConfig',
     'core.apps.CoreConfig',
     'aoc.apps.AOCConfig',  # advent of code
+    'users.apps.UsersConfig',
+    'activate.apps.ActivateConfig',
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
@@ -56,7 +60,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     # https://pypi.org/project/django-mathfilters/
     'mathfilters',
-    ## DJANGO internal
+    # DJANGO INTERNAL
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,9 +69,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+####################
+### crispy_forms ###
+####################
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,39 +108,36 @@ TEMPLATES = [
     },
 ]
 
-'''
-#https://devcenter.heroku.com/articles/memcachier#django
-if DJANGO_HOST == 'production':
-    #use caching
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
-        }
-    }
-'''
-
-
-
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
+AUTH_USER_MODEL = 'users.User'
+
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+
+LOGIN_REDIRECT_URL = 'core:index'
+LOGOUT_REDIRECT_URL = 'core:index'
+
+# auth
+PASSWORD_RESET_TIMEOUT = 60 * 60  # 1 hour
+
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('SMTP_HOST')
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_NOREPLY_USERNAME')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_NOREPLY_PASSWORD')
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -156,45 +161,17 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_REDIRECT_URL = '/polls'
-LOGOUT_REDIRECT_URL = '/polls'
-
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-
-## enable code conditional depending on the environment
-if DJANGO_HOST == 'production':
-    # if on prod environment (heroku) - see details:
-    # https://stackoverflow.com/questions/9383450/how-can-i-detect-herokus-environment/20227148
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = False
-
-    import django_heroku
-    django_heroku.settings(locals())
-
-if DJANGO_HOST == 'testing':
-    DATABASES = {
-        'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'github_actions',
-           'USER': 'postgres',
-           'PASSWORD': 'postgres',
-           'HOST': '127.0.0.1',
-           'PORT': '5432',
-        }
-    }
-
-if DJANGO_HOST == 'development':
-    #TODO use env variables
+if DJANGO_HOST != 'production':  # negation might be confusing, but is safer imo
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'mydjango',
-            'USER': 'riggedCoinflip',
-            'PASSWORD': 'Z6bnj6jkgtrPhzZz89',
+            'NAME': os.getenv('DATABASE_NAME'),
+            'USER': os.getenv('DATABASE_USER'),
+            'PASSWORD': os.getenv('DATABASE_PASSWORD'),
             'HOST': '127.0.0.1',
             'PORT': '5432',
         }
     }
+else:
+    django_heroku.settings(locals())

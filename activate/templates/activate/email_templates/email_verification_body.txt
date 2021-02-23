@@ -1,0 +1,6 @@
+{% comment "Optional note" %}
+    # TODO keep same as HTML
+{% endcomment %}
+
+You are almost there, {{ user.username }}!
+Please click the following link to confirm your account: {{ link }}

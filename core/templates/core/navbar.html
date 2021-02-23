@@ -41,17 +41,17 @@
       <ul class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="">{{ user.username }}</a> <!-- TODO add user profile -->
+            <a class="nav-link text-warning" href="">{{ user.username }}</a> <!-- TODO add user profile -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link text-warning" href="{% url 'core:signup' %}">Signup for free!</a>
+            <a class="nav-link text-warning" href="{% url 'signup' %}">Signup for free!</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'core:login' %}">Login</a>
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
         {% endif %}
 

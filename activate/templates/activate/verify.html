@@ -1,0 +1,16 @@
+{% extends "polls/base_with_sidebar.html" %}
+{% load static %}
+
+{% block title %} Verify your eMail {% endblock %}
+
+{% block content %}
+  {% if failed %}
+    Verification failed. This could have happened due to X
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    Click here to verify your account.
+  {% else %}
+    Please log in to verify.
+  {% endif %}
+{% endblock %}

@@ -14,13 +14,8 @@ name: Lint Code Base
 #########################
 # Start the job on push #
 #########################
-on:
-  push:
-    branches:
-      - prod
-      - master
-      - dev
-      - 'feature/**'
+on: push
+
 
 ###############
 # Set the Job #
@@ -55,12 +50,12 @@ jobs:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # validate via pylint
-          VALIDATE_PYTHON_BLACK: false
+          # validate via python black
+          VALIDATE_PYTHON_PYLINT: false
           VALIDATE_PYTHON_FLAKE8: false
           VALIDATE_PYTHON_ISORT: false
 
-          # validate with curlybraces lint because Djangos template
+          # validate with curlybraces lint because Djangos templates breaks standard html
           #TODO add curlylint github action
           VALIDATE_HTML: false
 
