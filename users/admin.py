@@ -16,6 +16,9 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'email', 'password1', 'password2',),
         }),
     )
+    fieldsets = UserAdmin.fieldsets + (
+        ('confirmed_email', {'fields': ('is_validated',)}),
+    )
 
     list_filter = UserAdmin.list_filter + ('is_validated',)
 
