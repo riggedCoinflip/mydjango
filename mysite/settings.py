@@ -108,18 +108,6 @@ TEMPLATES = [
     },
 ]
 
-'''
-#https://devcenter.heroku.com/articles/memcachier#django
-if DJANGO_HOST == 'production':
-    #use caching
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
-        }
-    }
-'''
-
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Password validation
