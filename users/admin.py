@@ -1,15 +1,23 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import UserCreationForm, UserChangeForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import User
 
 
-class UserAdmin(UserAdmin):
-    add_form = UserCreationForm
-    form = UserChangeForm
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm  # what does this line do exactly?
+    form = CustomUserChangeForm  # what does this line do exactly?
     model = User
-    list_display = ['email', 'username',]
+    list_display = ['email', 'username']
+
+    add_fieldsets = (
+        (None, {
+            'fields': ('username', 'email', 'password1', 'password2',),
+        }),
+    )
+
+    list_filter = UserAdmin.list_filter + ('is_validated',)
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)
