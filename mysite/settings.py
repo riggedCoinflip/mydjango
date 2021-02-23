@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'aoc.apps.AOCConfig',  # advent of code
     'users.apps.UsersConfig',
+    'activate.apps.ActivateConfig',
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
@@ -135,6 +136,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL = 'core:index'
 LOGOUT_REDIRECT_URL = 'core:index'
+
+# auth
+PASSWORD_RESET_TIMEOUT = 60 * 60  # 1 hour
+
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('SMTP_HOST')
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_NOREPLY_USERNAME')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_NOREPLY_PASSWORD')
+
 
 
 # Internationalization

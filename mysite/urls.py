@@ -28,6 +28,7 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('aoc/', include('aoc.urls')),
     path('users/', include('users.urls')),
+    path('activate/', include('activate.urls')),
     # admin
     path('admin/', admin.site.urls),
 ]
