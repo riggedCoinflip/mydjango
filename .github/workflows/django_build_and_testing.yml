@@ -1,10 +1,8 @@
 name: Django passes
 
-
-
-
 on:
   [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,14 +11,13 @@ jobs:
       DATABASE_PASSWORD: postgres
       DATABASE_NAME: github_actions
 
-
     services:
       postgres:
         image: postgres:13
         env:
           POSTGRES_USER: ${{ env.DATABASE_USER }}
           POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
-          POSTGRES_DB: ${{ env.github_actions }}
+          POSTGRES_DB: ${{ env.DATABASE_NAME }}
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
