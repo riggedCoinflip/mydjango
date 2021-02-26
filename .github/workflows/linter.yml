@@ -57,7 +57,7 @@ jobs:
           VALIDATE_PYTHON_FLAKE8: false
           VALIDATE_PYTHON_ISORT: false
 
-          # validate with curlybraces lint because Djangos templates breaks standard html
+          # validate with curlybraces lint because Django templates break standard html
           #TODO add curlylint github action
           VALIDATE_HTML: false
 
