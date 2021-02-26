@@ -18,8 +18,6 @@ import django_heroku
 
 load_dotenv()
 
-#delete later again
-[print(f'{key}:{value}') for key, value in os.environ.items()]
 if os.getenv('PRODUCTION'):
     print("env found: prod")
     DJANGO_HOST = 'production'
@@ -38,6 +36,8 @@ elif os.getenv('DEVELOPMENT'):
     # different key than on prod, exposing it is no security risk
     DEBUG = True
 else:
+    # delete later again
+    [print(f'{key}:{value}') for key, value in os.environ.items()]
     print("could not find the right environment. Script will now exit for safety")
     exit()
 
