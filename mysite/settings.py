@@ -36,9 +36,9 @@ elif os.getenv('DEVELOPMENT'):
     # different key than on prod, exposing it is no security risk
     DEBUG = True
 else:
+    print("could not find the right environment. Script will now exit for safety")
     # delete later again
     [print(f'{key}:{value}') for key, value in os.environ.items()]
-    print("could not find the right environment. Script will now exit for safety")
     exit()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
