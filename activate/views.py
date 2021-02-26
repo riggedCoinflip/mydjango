@@ -48,6 +48,7 @@ class VerifyUserRedirectView(generic.RedirectView):
         user.save()
 
 
+#TODO make login required
 class VerifyView(generic.TemplateView):
     template_name = 'activate/verify.html'
 
