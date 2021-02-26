@@ -18,6 +18,8 @@ import django_heroku
 
 load_dotenv()
 
+#delete later again
+[print(f'{key}:{value}') for key, value in os.environ.items()]
 if os.getenv('PRODUCTION'):
     print("env found: prod")
     DJANGO_HOST = 'production'
