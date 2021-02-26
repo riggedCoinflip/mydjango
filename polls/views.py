@@ -15,10 +15,11 @@ def recent_polls(how_many=5):
     ).order_by('-pub_date')[:how_many]
     return polls
 
+
 # we use how MRO works for multiinheritance so that super calls generic view
 class WithSidebar:  # pylint: disable=E1101
     def get_context_data(self, **kwargs):
-        context = super(WithSidebar, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['recent_polls'] = recent_polls()
         return context
 
@@ -65,12 +66,12 @@ class ResultsView(WithSidebar, generic.DetailView):
     template_name = 'polls/results.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ResultsView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['votes__sum'] = self.object.choice_set.all().aggregate(Sum('votes'))['votes__sum']
         return context
 
 
-def vote(request, question_id):
+def vote(request, question_id):  # TODO make cbv
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])

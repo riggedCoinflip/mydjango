@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+  <title>Verify Email address</title>
+
+  <style>
+    .format-font {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .my-container {
+      margin: 10px;
+      padding: 0 10px;
+      justify-content: center;
+      border-radius: 5px;
+      border: 1px solid rgb(204, 203, 203);
+    }
+
+    .my_button {
+      padding: 10px 35px;
+      background-color: #ffbf00;
+      color: white;
+      border-radius: 25px;
+      transition-duration: 500ms;
+      text-decoration: none;
+
+    }
+
+    .a.my_button:link {
+      color: white;
+    }
+
+    .my_button:hover {
+      background-color: #ffd600;
+      border-radius: 0;
+      border: 1px solid #ffff00;
+      transition-duration: 200ms;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="my-container">
+
+  <div style="background-color: #ff8000; border-radius: 15px;">
+    <h2 class="format-font" style="text-align: center; padding: 2px; color:white;">
+      Hello {{ user.username }}!
+    </h2>
+  </div>
+
+  <div class="format-font" style="margin-top: 20px; line-height: 1.5; text-align: center;">
+    You received this mail because you created an account on our website.<br>
+    Please click on the link below to confirm the email and activate your account.
+  </div>
+
+  <div class="format-font" style="text-align: center; margin: 30px 0;">
+    <a href="{{ link }}" class="my_button">Verify your eMail</a>
+  </div>
+
+  <p class="format-font" style="line-height: 1.5; margin-top: 50px">
+    This mail is machine generated. If you experience issues, please contact <a href="mailto:support@riggedcoinflip.de">support@riggedcoinflip.de</a>
+  </p>
+</div>
+
+</body>
+</html>

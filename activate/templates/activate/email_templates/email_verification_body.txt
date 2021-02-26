@@ -1,0 +1,11 @@
+{% comment "Optional note" %}
+    keep this file as even to the HTML version as possible
+{% endcomment %}
+
+Hello {{ user.username }}!
+You received this mail because you attempted to make account on our website.
+Please click on the link below to confirm the email and activate your account.
+{{ link }}
+
+
+This mail is automatically generated. If you experience issues, please contact support@riggedcoinflip.de
