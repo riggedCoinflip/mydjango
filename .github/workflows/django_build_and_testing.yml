@@ -1,7 +1,9 @@
 name: Django passes
 
-on:
-  [push, pull_request]
+#########################
+# Start the job on push #
+#########################
+on: push
 
 jobs:
   build:
