@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'aoc.apps.AOCConfig',  # advent of code
     'users.apps.UsersConfig',
     'activate.apps.ActivateConfig',
+    'settings.apps.SettingsConfig',
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
