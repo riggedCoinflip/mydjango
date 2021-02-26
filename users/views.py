@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from activate.verification import send_verification_email
+from activate.verifiy import send_verification_email
 from .forms import CustomUserCreationForm
 from .models import User
 
