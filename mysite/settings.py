@@ -19,13 +19,21 @@ import django_heroku
 load_dotenv()
 
 if os.getenv('PRODUCTION'):
+    print("env found: prod")
     DJANGO_HOST = 'production'
+    SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = False
 elif os.getenv('GITHUB_WORKFLOW'):
+    print("env found: github_workflow")
     DJANGO_HOST = 'testing'
+    SECRET_KEY = 'u0&rixjzwlb76=sob2d1w8hf^7ivm7tsx#lk9_9d&pyl+gm!=a'
+    # different key than on prod, exposing it is no security risk
     DEBUG = False
 elif os.getenv('DEVELOPMENT'):
+    print("env found: dev")
     DJANGO_HOST = 'development'
+    SECRET_KEY = 'u0&rixjzwlb76=sob2d1w8hf^7ivm7tsx#lk9_9d&pyl+gm!=a'
+    # different key than on prod, exposing it is no security risk
     DEBUG = True
 else:
     print("could not find the right environment. Script will now exit for safety")
@@ -39,8 +47,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ALLOWED_HOSTS = []  # managed by django_heroku for prod
 
 # Application definition
-SECRET_KEY = os.getenv('SECRET_KEY')
-
 
 INSTALLED_APPS = [
     ## my apps
