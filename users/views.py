@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -23,7 +24,12 @@ class SignupView(generic.CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
+# TODO passwordResetForm
 
-# passwordResetForm
 
+class UserView(generic.DetailView):
+    template_name = 'users/user.html'
+    model = User
 
+    def get_object(self, queryset=None):
+        return get_object_or_404(User, username=self.kwargs['username'])
