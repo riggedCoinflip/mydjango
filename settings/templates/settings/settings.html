@@ -1,16 +1,12 @@
 {% extends 'core/base.html' %}
+{% load crispy_forms_filters %}
 
 {% block title %} Settings {% endblock %}
 
 {% block content %}
-class QuestionForm(forms.ModelForm):
-    class Meta:
-        model = Question
-        fields = ('question_text',)
-        labels = {
-            'question_text': ''
-        }
-        widgets = {
-            'question_text': forms.TextInput(attrs={'placeholder': 'Enter Question here', 'size': questionFormSize})
-        }
+  <form class="submit-question" action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Save" class="btn btn-success">
+  </form>
 {% endblock %}
