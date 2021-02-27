@@ -12,6 +12,6 @@ class SettingsUpdateForm(forms.ModelForm):
             'github_name': ''
         }
         widgets = {
-            'question_text': forms.TextInput(attrs={'placeholder': 'Describe yourself!'}),
+            'about_text': forms.Textarea(attrs={'placeholder': 'Describe yourself!💯'}),
             'github_name': forms.TextInput(attrs={'placeholder': 'Add your github username here'})
         }
