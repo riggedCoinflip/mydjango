@@ -36,5 +36,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
+# prod uses collectstatic instead
 if settings.DJANGO_HOST == "development":
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
