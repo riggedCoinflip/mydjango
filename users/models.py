@@ -8,7 +8,7 @@ class User(AbstractUser):
     email = models.EmailField('email address', blank=False, unique=True)
     about_text = models.TextField(max_length=1000, null=True, blank=True, validators=(MaxLengthValidator(1000),))
     github_name = models.CharField(max_length=100, null=True, blank=True, validators=(MaxLengthValidator(100),))
-    avatar = models.ImageField(blank=True, null=True)
+    avatar = models.ImageField(upload_to='users/avatars', default='users/avatars/default/default.png')
 
     def __str__(self):
         return self.username

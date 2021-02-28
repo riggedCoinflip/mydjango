@@ -166,6 +166,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Database
 if DJANGO_HOST != 'production':  # negation might be confusing, but is safer imo
     DATABASES = {
