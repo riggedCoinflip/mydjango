@@ -26,14 +26,12 @@ if os.getenv('PRODUCTION'):
 elif os.getenv('GITHUB_WORKFLOW'):
     print("env found: github_workflow")
     DJANGO_HOST = 'testing'
-    SECRET_KEY = 'u0&rixjzwlb76=sob2d1w8hf^7ivm7tsx#lk9_9d&pyl+gm!=a'
-    # different key than on prod, exposing it is no security risk
+    SECRET_KEY = 'testtesttest'
     DEBUG = False
 elif os.getenv('DEVELOPMENT'):
     print("env found: dev")
     DJANGO_HOST = 'development'
-    SECRET_KEY = 'u0&rixjzwlb76=sob2d1w8hf^7ivm7tsx#lk9_9d&pyl+gm!=a'
-    # different key than on prod, exposing it is no security risk
+    SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = True
 else:
     print("could not find the right environment. Script will now exit for safety")
@@ -55,6 +53,7 @@ INSTALLED_APPS = [
     'aoc.apps.AOCConfig',  # advent of code
     'users.apps.UsersConfig',
     'activate.apps.ActivateConfig',
+    'settings.apps.SettingsConfig',
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
@@ -166,6 +165,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Database
 if DJANGO_HOST != 'production':  # negation might be confusing, but is safer imo

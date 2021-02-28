@@ -3,5 +3,8 @@
 {% block title %} {{ user.username }} {% endblock %}
 
 {% block content %}
-{{ user.username }}
+  <img src="{{ user.avatar.url }}" alt="Smiley face" width="250" height="250">
+  {{ user.username }}<br>
+  {{ user.about_text }}<br>
+  <em class="fab fa-github"></em><a href="https://www.github.com/{{ user.github_name }}" target="_blank">{{ user.github_name }}</a><br>
 {% endblock %}
