@@ -17,10 +17,7 @@ class SignupView(generic.CreateView):
     def form_valid(self, form):
         self.object = form.save()
         user = self.object
-
-
         send_verification_email(user, self.request)
-
         return HttpResponseRedirect(self.get_success_url())
 
 
