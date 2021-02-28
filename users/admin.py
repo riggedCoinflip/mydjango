@@ -18,6 +18,7 @@ class CustomUserAdmin(UserAdmin):
     )
     fieldsets = UserAdmin.fieldsets + (
         ('confirmed_email', {'fields': ('is_validated',)}),
+        ('Profile Picture', {'fields': ('avatar',)}),
     )
 
     list_filter = UserAdmin.list_filter + ('is_validated',)
