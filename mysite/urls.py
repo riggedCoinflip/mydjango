@@ -17,17 +17,24 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.contrib.auth.views import LogoutView, LoginView
+from django.contrib.auth import views as auth_views
 from registration.views import SignupView, WelcomeView
 
 urlpatterns = [
-    # core and meta
     path('', include('core.urls')),
-    path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    # login and signup
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', SignupView.as_view(), name='signup'),
     path('welcome/', WelcomeView.as_view(), name='welcome'),
+    # password reset
+    path('reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>',
+         auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     # apps
+
     path('polls/', include('polls.urls')),
     path('aoc/', include('aoc.urls')),
     path('users/', include('users.urls')),

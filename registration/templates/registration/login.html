@@ -9,5 +9,9 @@
     {{ form|crispy }}
     <input type="submit" value="login" class="btn btn-success">
   </form>
-  New here? <a href="{% url 'signup' %}">Create an account</a>
+  <div>
+    <p class="float-start">New here? <a href="{% url 'signup' %}">Create an account</a></p>
+    <p class="float-end"><a href="{% url 'password_reset' %}">I forgot my password</a></p>
+  </div>
+
 {% endblock %}
