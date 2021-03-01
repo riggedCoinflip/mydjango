@@ -36,6 +36,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-# prod uses collectstatic instead
-if settings.DJANGO_HOST == "development":
+# prod uses whitenoise instead
+if not settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
