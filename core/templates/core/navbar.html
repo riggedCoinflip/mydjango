@@ -43,9 +43,16 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-              {{ user.username }}
+              <img src="{{ user.avatar.url }}" class="rounded-circle" alt="{{ user.username }}" width="30px">
+
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item">
+                Signed in as <strong>{{ user.username }}</strong>
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item" href="{% url 'settings:index' %}">
                 <em class="fas fa-cog"></em> Settings
               </a></li>
@@ -58,6 +65,7 @@
               <li><a class="dropdown-item" href="{% url 'logout' %}">
                 <em class="fas fa-sign-out-alt"></em> Logout
               </a></li>
+
 
             </ul>
           </li>

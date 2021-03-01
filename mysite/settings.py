@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     # https://pypi.org/project/django-mathfilters/
     'mathfilters',
+    # https://github.com/matthewwithanm/django-imagekit
+    'imagekit',
     # DJANGO INTERNAL
     'django.contrib.admin',
     'django.contrib.auth',
