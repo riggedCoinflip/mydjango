@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth.views import LogoutView, LoginView
-from users.views import SignupView
+from registration.views import SignupView, WelcomeView
 
 urlpatterns = [
     # core and meta
@@ -26,6 +26,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', SignupView.as_view(), name='signup'),
+    path('welcome/', WelcomeView.as_view(), name='welcome'),
     # apps
     path('polls/', include('polls.urls')),
     path('aoc/', include('aoc.urls')),
