@@ -3,8 +3,31 @@
 {% block title %} {{ user.username }} {% endblock %}
 
 {% block content %}
-  <img src="{{ user.avatar.url }}" alt="Smiley face" width="250" height="250">
-  {{ user.username }}<br>
-  {{ user.about_text }}<br>
-  <em class="fab fa-github"></em><a href="https://www.github.com/{{ user.github_name }}" target="_blank">{{ user.github_name }}</a><br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-auto">
+        <img src="{{ user.avatar.url }}" class="rounded-circle" alt="" aria-label="Avatar of {{ user.username }}"
+             width="250" height="250">
+      </div>
+      <div class="col">
+        <h1 class="text-center">{{ user.username }}</h1>
+        <p>
+          <a class="text-reset text-decoration-none" href="https://www.github.com/{{ user.github_name }}" target="_blank">
+            <em class="fab fa-github fa-2x"></em>
+            <strong style="font-size: 1.5em">/{{ user.github_name }}</strong>
+          </a>
+        </p>
+        <p class="border-1 border-secondary mt-2">
+          {{ user.about_text }}
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <br>
+
 {% endblock %}

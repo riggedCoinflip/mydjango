@@ -5,8 +5,8 @@
 
 {% block content %}
   <h1 class="text-center">Appearance</h1>
-  <img src="{{ user.avatar.url }}" alt="Smiley face" width="250" height="250">
-  <form class="submit-question" action="" method="post">
+
+  <form class="submit-question" action="" method="post"  enctype="multipart/form-data">
     {% crispy form form.helper %}
   </form>
 

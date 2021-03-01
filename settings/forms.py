@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, Row, Column, ButtonHolder, Submit
 from django import forms
+
 from users.models import User
 
 
@@ -15,8 +16,7 @@ class SettingsUpdateForm(forms.ModelForm):
         }
         widgets = {
             'about_text': forms.Textarea(attrs={'placeholder': 'Describe yourself!💯'}),
-            'github_name': forms.TextInput(attrs={'class': 'form-inline',
-                                                  'placeholder': 'your_github_name'}),
+            'github_name': forms.TextInput(attrs={'placeholder': 'your_github_name'}),
         }
         help_texts = {
             'github_name': 'You may showcase a project as well: <em>/username/fav_project</em>',
@@ -31,7 +31,12 @@ class SettingsUpdateForm(forms.ModelForm):
         Use g-0 to not have gutters between columns - padding and margin would else create whitespace
         '''
         self.helper.layout = Layout(
-            Div('avatar'),
+            Row(
+                Column(HTML('<img src="{{ user.avatar.url }}" class="rounded-circle me-2"'
+                            'alt="Your current Avatar Image" width="100">'), css_class='col-auto'),
+                Column('avatar', css_class='col'),
+                css_class='row g-0'
+            ),
             Div('about_text'),
             Row(
                 # create a "fake" label with a HTML Column
@@ -46,5 +51,6 @@ class SettingsUpdateForm(forms.ModelForm):
 
     def clean_github_name(self):
         github_name = self.cleaned_data['github_name']
-        github_name = github_name.strip(' /')
+        if github_name:
+            github_name = github_name.strip(' /')
         return github_name
