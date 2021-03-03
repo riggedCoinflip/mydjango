@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      IS_GITHUB_WORKFLOW: true
       SECRET_KEY: test
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres

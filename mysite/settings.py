@@ -20,8 +20,8 @@ import django_heroku
 load_dotenv()
 
 IS_PRODUCTION = os.getenv("IS_PRODUCTION") == "true"
-IS_GITHUB_WORKFLOW = os.getenv("GITHUB_WORKFLOW") == "true"
-IS_DEVELOPMENT = os.getenv("DEVELOPMENT") == "true"
+IS_GITHUB_WORKFLOW = os.getenv("IS_GITHUB_WORKFLOW") == "true"
+IS_DEVELOPMENT = os.getenv("IS_DEVELOPMENT") == "true"
 
 if IS_PRODUCTION:
     print(f"{IS_PRODUCTION=}")
