@@ -55,17 +55,26 @@ INSTALLED_APPS = [
     'activate.apps.ActivateConfig',
     'settings.apps.SettingsConfig',
     'registration.apps.RegistrationConfig',
-    ## other repos
+
+    ##################
+    # Other packages #
+    ##################
+    # show better error messages
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
+    # allow for more detailed and complex views
     # https://github.com/AndrewIngram/django-extra-views/
     'extra_views',
+    # allow for forms that already use bootstrap classes
     # https://github.com/django-crispy-forms/django-crispy-forms
     'crispy_forms',
+    # bootstrap 5 for crispy forms
     # https://github.com/django-crispy-forms/crispy-bootstrap5
     'crispy_bootstrap5',
+    # template filters for easy math
     # https://pypi.org/project/django-mathfilters/
     'mathfilters',
+    # enable image processing
     # https://github.com/matthewwithanm/django-imagekit
     'imagekit',
     # DJANGO INTERNAL
