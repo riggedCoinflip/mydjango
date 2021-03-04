@@ -16,26 +16,27 @@ from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
 
+
 load_dotenv()
 
-if os.getenv('PRODUCTION'):
-    print("env found: prod")
-    DJANGO_HOST = 'production'
-    SECRET_KEY = os.getenv('SECRET_KEY')
+IS_PRODUCTION = os.getenv("IS_PRODUCTION") == "true"
+IS_GITHUB_WORKFLOW = os.getenv("IS_GITHUB_WORKFLOW") == "true"
+IS_DEVELOPMENT = os.getenv("IS_DEVELOPMENT") == "true"
+
+if IS_PRODUCTION:
+    print(f"{IS_PRODUCTION=}")
     DEBUG = False
-elif os.getenv('GITHUB_WORKFLOW'):
-    print("env found: github_workflow")
-    DJANGO_HOST = 'testing'
-    SECRET_KEY = 'testtesttest'
+elif IS_GITHUB_WORKFLOW:
+    print(f"{IS_GITHUB_WORKFLOW=}")
     DEBUG = False
-elif os.getenv('DEVELOPMENT'):
-    print("env found: dev")
-    DJANGO_HOST = 'development'
-    SECRET_KEY = os.getenv('SECRET_KEY')
+elif IS_DEVELOPMENT:
+    print(f"{IS_DEVELOPMENT=}")
     DEBUG = True
 else:
     print("could not find the right environment. Script will now exit for safety")
     exit()
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,19 +56,31 @@ INSTALLED_APPS = [
     'activate.apps.ActivateConfig',
     'settings.apps.SettingsConfig',
     'registration.apps.RegistrationConfig',
-    ## other repos
+
+    ##################
+    # Other packages #
+    ##################
+    # show better error messages
     # https://github.com/boxed/django-fastdev
     'django_fastdev',
+    # allow for more detailed and complex views
     # https://github.com/AndrewIngram/django-extra-views/
     'extra_views',
+    # allow for forms that already use bootstrap classes
     # https://github.com/django-crispy-forms/django-crispy-forms
     'crispy_forms',
+    # bootstrap 5 for crispy forms
     # https://github.com/django-crispy-forms/crispy-bootstrap5
     'crispy_bootstrap5',
+    # template filters for easy math
     # https://pypi.org/project/django-mathfilters/
     'mathfilters',
+    # enable image processing
     # https://github.com/matthewwithanm/django-imagekit
     'imagekit',
+    # serve media files for prod
+    # https://github.com/etianen/django-s3-storage
+    'django_s3_storage',
     # DJANGO INTERNAL
     'django.contrib.admin',
     'django.contrib.auth',
@@ -163,18 +176,90 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+# Media files, served by AWS S3 on prod - on dev, this solution is used:
+# https://docs.djangoproject.com/en/3.1/howto/static-files/#serving-static-files-during-development
+
+USES_S3 = os.getenv("USES_S3") == "true"
+
+if USES_S3:
+    DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
+    STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+    AWS_REGION = "eu-central-1"
+    AWS_ACCESS_KEY_ID = os.getenv("AMAZON_S3_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AMAZON_S3_SECRET_ACCESS_KEY")
+    # The optional AWS session token to use.
+    AWS_SESSION_TOKEN = ""
+    # The name of the bucket to store files in.
+    AWS_S3_BUCKET_NAME = os.getenv("AMAZON_S3_BUCKET_NAME")
+    AWS_S3_BUCKET_NAME_STATIC = os.getenv("AMAZON_S3_BUCKET_NAME")
+    # How to construct S3 URLs ("auto", "path", "virtual").
+    AWS_S3_ADDRESSING_STYLE = "auto"
+    # The full URL to the S3 endpoint. Leave blank to use the default region URL.
+    AWS_S3_ENDPOINT_URL = ""
+    # A prefix to be applied to every stored file. This will be joined to every filename using the "/" separator.
+    AWS_S3_KEY_PREFIX = "media/"
+    AWS_S3_KEY_PREFIX_STATIC = "static/"
+    # Whether to enable authentication for stored files. If True, then generated URLs will include an authentication
+    # token valid for `AWS_S3_MAX_AGE_SECONDS`. If False, then generated URLs will not include an authentication token,
+    # and their permissions will be set to "public-read".
+    AWS_S3_BUCKET_AUTH = False
+    # How long generated URLs are valid for. This affects the expiry of authentication tokens if `AWS_S3_BUCKET_AUTH`
+    # is True. It also affects the "Cache-Control" header of the files.
+    # Important: Changing this setting will not affect existing files.
+    AWS_S3_MAX_AGE_SECONDS = 60 * 60 * 24 * 30  # 1 month
+    # A URL prefix to be used for generated URLs. This is useful if your bucket is served through a CDN.
+    AWS_S3_PUBLIC_URL = ""
+    # If True, then files will be stored with reduced redundancy. Check the S3 documentation and make sure you
+    # understand the consequences before enabling.
+    # Important: Changing this setting will not affect existing files.
+    AWS_S3_REDUCED_REDUNDANCY = False
+    # The Content-Disposition header used when the file is downloaded. This can be a string, or a function taking a
+    # single `name` argument.
+    # Important: Changing this setting will not affect existing files.
+    AWS_S3_CONTENT_DISPOSITION = ""
+    # The Content-Language header used when the file is downloaded. This can be a string, or a function taking a
+    # single `name` argument.
+    # Important: Changing this setting will not affect existing files.
+    # ISO-639
+    AWS_S3_CONTENT_LANGUAGE = "en"
+    # A mapping of custom metadata for each file. Each value can be a string, or a function taking a
+    # single `name` argument.
+    # Important: Changing this setting will not affect existing files.
+    AWS_S3_METADATA = {}
+    # If True, then files will be stored using AES256 server-side encryption.
+    # If this is a string value (e.g., "aws:kms"), that encryption type will be used.
+    # Otherwise, server-side encryption is not be enabled.
+    # Important: Changing this setting will not affect existing files.
+    AWS_S3_ENCRYPT_KEY = False
+    # The AWS S3 KMS encryption key ID (the `SSEKMSKeyId` parameter) is set from this string if present.
+    # This is only relevant if AWS S3 KMS server-side encryption is enabled (above).
+    AWS_S3_KMS_ENCRYPTION_KEY_ID = ""
+    # If True, then text files will be stored using gzip content encoding. Files will only be gzipped if their
+    # compressed size is smaller than their uncompressed size.
+    # Important: Changing this setting will not affect existing files.
+    AWS_S3_GZIP = True
+    # The signature version to use for S3 requests.
+    AWS_S3_SIGNATURE_VERSION = None
+    # If True, then files with the same name will overwrite each other. By default it's set to False to have
+    # extra characters appended.
+    AWS_S3_FILE_OVERWRITE = False
+
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+
+
+
 # Database
-if DJANGO_HOST != 'production':  # negation might be confusing, but is safer imo
+if IS_PRODUCTION:
+    django_heroku.settings(locals())
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -185,5 +270,3 @@ if DJANGO_HOST != 'production':  # negation might be confusing, but is safer imo
             'PORT': '5432',
         }
     }
-else:
-    django_heroku.settings(locals())
