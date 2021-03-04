@@ -29,7 +29,7 @@
     </div>
     <!-- Middle -->
     <div class="mx-auto order-0">
-      <a class="navbar-brand mx-auto" href="#">rigged Coinflip</a>
+      <a class="navbar-brand mx-auto" href="{% url 'core:index' %}">rigged Coinflip</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target=".dual-collapse" aria-controls=".dual-collapse"
               aria-expanded="false" aria-label="Toggle navigation">
@@ -40,18 +40,40 @@
     <div class="collapse navbar-collapse w-100 order-3 dual-collapse">
       <ul class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="">{{ user.username }}</a> <!-- TODO add user profile -->
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'core:logout' %}">Logout</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ user.avatar.url }}" class="rounded-circle" alt="{{ user.username }}" width="30px">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item">
+                Signed in as <strong>{{ user.username }}</strong>
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{% url 'settings:index' %}">
+                <em class="fas fa-cog"></em> Settings
+              </a></li>
+              <li><a class="dropdown-item" href="{% url 'users:detail' username=user.username %}">
+                <em class="fas fa-user"></em> Profile
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">
+                <em class="fas fa-sign-out-alt"></em> Logout
+              </a></li>
+
+
+            </ul>
           </li>
         {% else %}
-          <li class="nav-item">
-            <a class="nav-link text-warning" href="{% url 'core:signup' %}">Signup for free!</a>
+          <li class=" nav-item">
+            <a class="nav-link text-warning" href="{% url 'signup' %}">Signup for free!</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'core:login' %}">Login</a>
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
         {% endif %}
 
