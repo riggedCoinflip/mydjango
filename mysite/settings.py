@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'activate.apps.ActivateConfig',
     'settings.apps.SettingsConfig',
+    'registration.apps.RegistrationConfig',
     ## other repos
     # https://github.com/boxed/django-fastdev
     'django_fastdev',

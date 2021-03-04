@@ -1,7 +1,3 @@
-### secrets ###
-# keep your secrets
-*.key
-
 
 ###toptal auto-gitignore###
 
@@ -80,6 +76,8 @@ pytestdebug.log
 *.mo
 
 # Django stuff:
+staticfiles/
+!staticfiles/.gitkeep
 
 # Flask stuff:
 instance/
