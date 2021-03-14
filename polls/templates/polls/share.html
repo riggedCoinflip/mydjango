@@ -1,17 +1,29 @@
 <div>
-  <button id='copyToClipboard' type="button" class="btn btn-danger" data-bs-toggle="popover" title="Copy URL"
-          data-bs-html="true" data-bs-sanitize="false"
-          data-bs-content="
-    <h1> works1gggggggggggggggggggggggggg </h1>
-    <div>works2</div>
-    <span>works3</span>
-    <em>works4</em>
-    <input type='text' value='does not work' id='myInput'>
-    <button type='button' onclick='copyToClipboard()'>does not work</button>
-    hgzubi
-  ">
-    Share!
-  </button>
+    <button
+        id="copyToClipboard"
+        type="button"
+        class="btn btn-danger"
+        title="Copy URL"
+        data-bs-toggle="popover"
+        data-bs-placement="top"
+        data-bs-trigger="click"
+        data-bs-html="true"
+        data-bs-content="
+<div class='container'>
+    <div class='row'>
+        <div class='col g-0'>
+            <textarea class='border border-2 rounded' id='textToCopy' style='resize: none;' cols='20' rows='1'
+                wrap='off' readonly onclick='this.select()'>{{ request.build_absolute_uri }}</textarea>
+        </div>
+        <div class='col g-0'>
+            <button type='button' class='btn btn-outline-primary' onclick='copyToClipboard()'>
+                <em class='far fa-copy' style='font-size=1.5em;'></em>
+            </button>
+        </div>
+    </div>
 </div>
-<!-- <input type='text' value='{{ request.build_absolute_uri }}' id='myInput'>
-    <button onclick='copyToClipboard()'>Copy text</button>" -->
+"
+    >
+        Share!
+    </button>
+</div>
