@@ -11,6 +11,8 @@
         <li class="nav-item">
           <a class="nav-link" href="https://github.com/riggedCoinflip/mydjango" target="_blank">GitHub</a>
         </li>
+        <li class="nav-item"><a class="nav-link"" href="{% url 'polls:index' %}">Polls</a></li>
+        {% comment %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
@@ -18,13 +20,11 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'polls:index' %}">Polls</a></li>
-            <li><a class="dropdown-item" href="{% url 'aoc:index' %}">Advent of Code</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="{% url 'aoc:index' %}">Advent of Code (Under Construction)</a></li>
           </ul>
         </li>
+        {% endcomment %}
+
       </ul>
     </div>
     <!-- Middle -->
